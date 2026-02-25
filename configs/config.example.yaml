@@ -1,0 +1,70 @@
+# AI AgentGuard 配置示例
+# 复制此文件为 .agent-guard.yaml 并根据需要修改
+
+# 禁用的危险命令
+blocked_commands:
+  - "rm -rf /"
+  - "dd if=/dev/zero"
+  - "mkfs.*"
+  - ":(){ :|:& };:"  # fork bomb
+  - "chmod 000 /"
+  - "chown -R root"
+  - "shutdown"
+  - "reboot"
+
+# 允许访问的路径（白名单）
+allowed_paths:
+  - /tmp
+  - /var/tmp
+  - ~/projects
+  - ~/.config
+
+# 禁止访问的路径（黑名单）
+denied_paths:
+  - /etc/passwd
+  - /etc/shadow
+  - /etc/sudoers
+  - ~/.ssh
+  - ~/.gnupg
+  - /usr/bin/passwd
+  - /usr/bin/sudo
+
+# 需要保护的环境变量
+blocked_env_vars:
+  - API_KEY
+  - SECRET_KEY
+  - DATABASE_URL
+  - PASSWORD
+  - TOKEN
+  - CREDENTIALS
+  - AWS_SECRET_ACCESS_KEY
+  - PRIVATE_KEY
+
+# 网络访问控制
+network:
+  # 允许的域名
+  allowed_domains:
+    - api.github.com
+    - cdn.jsdelivr.net
+    - registry.npmjs.org
+    - pypi.org
+
+  # 禁止的域名
+  denied_domains:
+    - "*.malicious.com"
+    - "*.test-env.com"
+
+# 扫描器配置
+scanner:
+  filesystem: true
+  shell: true
+  network: true
+  secrets: true
+
+# 风险阈值（达到此级别将发出警告）
+risk_threshold: HIGH
+
+# 日志配置
+logging:
+  level: info  # debug, info, warn, error
+  file: /var/log/agent-guard.log

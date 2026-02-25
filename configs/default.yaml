@@ -1,0 +1,69 @@
+# AgentGuard Default Policy Configuration
+version: 1
+
+# Filesystem access rules
+filesystem:
+  # Allowed directories (read/write access)
+  allow:
+    - "./"
+    - /tmp
+
+  # Blocked directories (no access)
+  deny:
+    - ~/.ssh
+    - /etc
+    - /usr/bin
+    - /usr/sbin
+
+# Shell command execution rules
+shell:
+  # Allowed commands
+  allow:
+    - ls
+    - cat
+    - echo
+    - pwd
+    - cd
+    - grep
+    - head
+    - tail
+    - wc
+
+  # Blocked commands
+  deny:
+    - rm
+    - sudo
+    - curl
+    - wget
+    - chmod 777
+    - mkfs
+    - dd
+
+# Network access rules
+network:
+  # Allowed hosts/domains
+  allow: []
+
+  # Blocked patterns (* blocks all)
+  deny:
+    - "*"
+
+# Secrets protection - block these environment variables
+secrets:
+  block_env:
+    - AWS_SECRET_ACCESS_KEY
+    - AWS_SESSION_TOKEN
+    - GITHUB_TOKEN
+    - OPENAI_API_KEY
+    - ANTHROPIC_API_KEY
+    - GOOGLE_API_KEY
+    - DATABASE_URL
+    - API_KEY
+    - SECRET
+    - TOKEN
+    - PASSWORD
+
+# Sandbox execution settings
+sandbox:
+  disable_network: true
+  readonly_root: false
