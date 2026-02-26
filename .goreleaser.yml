@@ -1,0 +1,99 @@
+# .goreleaser.yml configuration for AIAgentGuard
+# See https://goreleaser.com/customization/ for documentation
+
+project_name: agent-guard
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+    main: .
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
+      - '^chore:'
+      - '^style:'
+
+brews:
+  - name: agent-guard
+    homepage: "https://github.com/imdlan/AIAgentGuard"
+    tap:
+      owner: imdlan
+      name: homebrew-AIAgentGuard
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    folder: Formula
+    commit_author:
+      name: goreleaser-bot
+      email: bot@goreleaser.com
+    description: "AI Agent, CLI tools, and MCP server security scanning tool"
+    license: MIT
+    skip_upload: false
+
+    # Install command
+    install: |
+      bin.install "agent-guard"
+
+    # Dependencies (if any)
+    # dependencies:
+    #   - name: go
+
+    # Test command to verify installation
+    test: |
+      system "#{bin}/agent-guard --help"
+
+release:
+  draft: false
+  prerelease: auto
+  mode: replace
+
+  # Extra files to include in the release
+  extra_files:
+    - glob: README.md
+    - glob: LICENSE
+    - glob: INSTALL.md
+
+# Signed builds (optional - requires setup)
+# signs:
+#   - artifacts: checksum
+#     args:
+#       - "--batch"
+#       - "--local-user"
+#       - "{{ .Env.GPG_FINGERPRINT }}"
+#       - "--output"
+#       - "${signature}"
+#       - "--detach-sign"
+#       - "${artifact}"
+
+# Announce to various sites (optional)
+# announces:
+#   twitter: true
+#   mastodon: true
+#   discord: true

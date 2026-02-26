@@ -20,7 +20,19 @@ brew tap imdlan/AIAgentGuard
 brew install agent-guard
 ```
 
-### 方式 2: Go Install（开发者）
+### 方式 2: 从 GitHub Releases 下载
+
+访问 [Releases 页面](https://github.com/imdlan/AIAgentGuard/releases) 下载对应平台的二进制文件。
+
+```bash
+# macOS / Linux
+curl -LO https://github.com/imdlan/AIAgentGuard/releases/latest/download/agent-guard_darwin_arm64.tar.gz
+tar -xzf agent-guard_darwin_arm64.tar.gz
+chmod +x agent-guard
+sudo mv agent-guard /usr/local/bin/
+```
+
+### 方式 3: Go Install（开发者）
 
 ```bash
 go install github.com/imdlan/AIAgentGuard@latest
@@ -31,7 +43,7 @@ go install github.com/imdlan/AIAgentGuard@latest
 export PATH=$PATH:$(go env GOPATH)/bin
 ```
 
-### 方式 3: 安装脚本
+### 方式 4: 安装脚本
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/imdlan/AIAgentGuard/main/scripts/install.sh | bash
@@ -301,6 +313,35 @@ agent-guard/
 └── scripts/         # 安装脚本
 ```
 
+### 发布流程
+
+本项目使用 Goreleaser 自动化发布流程。当推送版本 tag 时，自动触发 GitHub Actions：
+
+1. 构建多平台二进制文件（macOS/Linux, AMD64/ARM64）
+2. 创建 GitHub Release
+3. 生成文件校验和（checksums.txt）
+4. 自动更新 Homebrew formula
+
+**发布新版本**：
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+详细文档请查看：[发布流程指南](doc/RELEASE.md)
+
+### 本地测试
+
+```bash
+# 安装 goreleaser
+brew install goreleaser
+
+# 测试构建（不发布）
+goreleaser build --clean --snapshot
+
+# 测试完整流程（dry-run）
+goreleaser release --clean --snapshot --skip-publish
+```
 ## 许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
