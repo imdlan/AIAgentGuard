@@ -1,30 +1,30 @@
 # AI AgentGuard
 
-🛡️ Security scanning tool for AI Agents, CLI tools, and MCP servers
+🛡️ AI Agent、CLI 工具和 MCP 服务器的安全扫描工具
 
 [English](README.md) | [简体中文](README_zh.md)
 
-## Features
+## 功能特性
 
-- **Permission Scanning** - Detect filesystem, shell, network, and secret access permissions
-- **Risk Assessment** - Intelligently analyze security threats and calculate risk levels
-- **Sandbox Execution** - Safely run commands in isolated environments
-- **Policy Management** - Control access permissions via YAML configuration
-- **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
-- **Plugin Scanning** - Detect insecure plugins and extensions
+- **权限扫描** - 检测文件系统、Shell、网络和机密访问权限
+- **风险评估** - 智能分析安全威胁并计算风险等级
+- **沙箱执行** - 在隔离环境中安全运行命令
+- **策略管理** - 通过 YAML 配置文件控制访问权限
+- **提示注入防护** - 检测和阻止恶意提示注入攻击
+- **插件扫描** - 检测不安全的插件和扩展
 
-## Installation
+## 安装方式
 
-### Method 1: Homebrew (Recommended for macOS/Linux)
+### 方式 1: Homebrew（推荐 macOS/Linux）
 
 ```bash
 brew tap imdlan/AIAgentGuard
 brew install agent-guard
 ```
 
-### Method 2: Download from GitHub Releases
+### 方式 2: 从 GitHub Releases 下载
 
-Visit the [Releases page](https://github.com/imdlan/AIAgentGuard/releases) to download binaries for your platform.
+访问 [Releases 页面](https://github.com/imdlan/AIAgentGuard/releases) 下载对应平台的二进制文件。
 
 ```bash
 # macOS / Linux
@@ -34,24 +34,24 @@ chmod +x agent-guard
 sudo mv agent-guard /usr/local/bin/
 ```
 
-### Method 3: Go Install (For Developers)
+### 方式 3: Go Install（开发者）
 
 ```bash
 go install github.com/imdlan/AIAgentGuard@latest
 ```
 
-Make sure `$GOPATH/bin` is in your `PATH`:
+确保 `$GOPATH/bin` 在你的 `PATH` 中：
 ```bash
 export PATH=$PATH:$(go env GOPATH)/bin
 ```
 
-### Method 4: Install Script
+### 方式 4: 安装脚本
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/imdlan/AIAgentGuard/main/scripts/install.sh | bash
 ```
 
-### Method 5: Build from Source
+### 方式 5: 从源码编译
 
 ```bash
 git clone https://github.com/imdlan/AIAgentGuard.git
@@ -60,69 +60,69 @@ go build -o agent-guard
 sudo mv agent-guard /usr/local/bin/
 ```
 
-## Quick Start
+## 快速开始
 
-### 1. Scan Security Risks
+### 1. 扫描安全风险
 
 ```bash
-# Scan current environment
+# 扫描当前环境
 agent-guard scan
 
-# JSON format output
+# JSON 格式输出
 agent-guard scan --json
 
-# Use custom policy
+# 使用自定义策略
 agent-guard scan --config ./my-policy.yaml
 ```
 
-### 2. Run in Sandbox
+### 2. 沙箱执行
 
 ```bash
-# Run command in isolated environment
+# 在隔离环境中运行命令
 agent-guard run "curl https://api.example.com"
 
-# Disable network access
+# 禁用网络访问
 agent-guard run --disable-network "npm install"
 
-# Restrict filesystem access
+# 限制文件系统访问
 agent-guard run --allow-dirs /tmp,/data "node script.js"
 ```
 
-### 3. Generate Report
+### 3. 生成报告
 
 ```bash
-# Generate detailed report
+# 生成详细报告
 agent-guard report
 
-# Save to file
+# 保存到文件
 agent-guard report --json > security-report.json
 ```
 
-### 4. Initialize Configuration
+### 4. 初始化配置
 
 ```bash
-# Generate default configuration file
+# 生成默认配置文件
 agent-guard init
 
-# Configuration file locations:
-# - .agent-guard.yaml (current directory)
-# - ~/.agent-guard.yaml (user directory)
-# - /etc/agent-guard/config.yaml (system directory)
+# 配置文件位置：
+# - .agent-guard.yaml (当前目录)
+# - ~/.agent-guard.yaml (用户目录)
+# - /etc/agent-guard/config.yaml (系统目录)
 ```
 
-## Configuration Example
+## 配置示例
 
-Create `.agent-guard.yaml`:
+创建 `.agent-guard.yaml`：
 
 ```yaml
-# Block dangerous commands
+# 禁用危险命令
 blocked_commands:
   - "rm -rf /"
   - "dd if=/dev/zero"
   - "mkfs"
   - ":(){ :|:& };:"  # fork bomb
 
-# Restrict filesystem access
+# 限制文件系统访问
 allowed_paths:
   - /tmp
   - /home/user/project
@@ -133,13 +133,13 @@ denied_paths:
   - /etc/shadow
   - ~/.ssh
 
-# Environment variable protection
+# 环境变量保护
 blocked_env_vars:
   - API_KEY
   - SECRET_TOKEN
   - DATABASE_URL
 
-# Network access control
+# 网络访问控制
 network:
   allowed_domains:
     - api.github.com
@@ -148,13 +148,13 @@ network:
     - "*.malicious.com"
 ```
 
-## Output Example
+## 输出示例
 
 ```
   █████╗ ██╗     █████╗  ██████╗ ███████╗███╗   ██╗████████╗ ██████╗ ██╗   ██╗ █████╗ ██████╗ ██████╗
  ██╔══██╗██║    ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝██╔════╝ ██║   ██║██╔══██╗██╔══██╗██╔══██╗
  ███████║██║    ███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ██║  ███╗██║   ██║███████║██████╔╝██║  ██║
- ██╔══██╗██║    ██╔══██╗██║   ██║██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██║   ██║██╔══██╗██╔══██╗██║  ██║
+ ██╔══██╗██║    ██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██║   ██║██╔══██╗██╔══██╗██║  ██║
  ██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
  ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 
@@ -188,63 +188,63 @@ Recommendations:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-## Command Reference
+## 命令参考
 
-### Global Options
+### 全局选项
 
 ```
--c, --config string   Path to policy configuration file
--j, --json            JSON output format
--v, --verbose         Verbose output
--h, --help            Show help information
+-c, --config string   策略配置文件路径
+-j, --json            JSON 格式输出
+-v, --verbose         详细输出
+-h, --help            显示帮助信息
 ```
 
-### scan - Security Scan
+### scan - 安全扫描
 
-Scan the current environment for security risks and permissions.
+扫描当前环境的安全风险和权限。
 
 ```bash
 agent-guard scan [flags]
 ```
 
-### run - Sandbox Execution
+### run - 沙箱执行
 
-Execute commands in an isolated environment.
+在隔离环境中执行命令。
 
 ```bash
 agent-guard run [command] [flags]
 
-Options:
-  --disable-network    Disable network access
-  --allow-dirs paths   Allow access to directories (comma-separated)
-  --block-dirs paths   Block access to directories (comma-separated)
+选项:
+  --disable-network    禁用网络访问
+  --allow-dirs paths   允许访问的目录（逗号分隔）
+  --block-dirs paths   禁止访问的目录（逗号分隔）
 ```
 
-### report - Generate Report
+### report - 生成报告
 
-Generate and display security reports.
+生成并显示安全报告。
 
 ```bash
 agent-guard report [flags]
 ```
 
-### init - Initialize Configuration
+### init - 初始化配置
 
-Generate default configuration file.
+生成默认配置文件。
 
 ```bash
 agent-guard init [flags]
 
-Options:
-  --force    Overwrite existing configuration file
-  --path     Specify configuration file path
+选项:
+  --force    覆盖已存在的配置文件
+  --path     指定配置文件路径
 ```
 
-## FAQ
+## 常见问题
 
-### Q: How to disable specific scans?
+### Q: 如何禁用特定扫描？
 
-A: Edit the configuration file and set corresponding options to `false`:
+A: 编辑配置文件，设置相应选项为 `false`：
 
 ```yaml
 scanner:
@@ -254,106 +254,106 @@ scanner:
   secrets: true
 ```
 
-### Q: How does sandbox mode work?
+### Q: 沙箱模式如何工作？
 
-A: Sandbox mode uses the following techniques:
-- Environment variable isolation
-- Filesystem access restriction
-- Network access control (optional)
-- Command whitelist/blacklist
+A: 沙箱模式使用以下技术：
+- 环境变量隔离
+- 文件系统访问限制
+- 网络访问控制（可选）
+- 命令白名单/黑名单
 
-### Q: How to integrate with CI/CD?
+### Q: 如何与 CI/CD 集成？
 
-A: Add security scan steps to your CI/CD pipeline:
+A: 在 CI/CD pipeline 中添加扫描步骤：
 
 ```yaml
-# GitHub Actions example
+# GitHub Actions 示例
 - name: Security Scan
   run: |
     go install github.com/imdlan/AIAgentGuard@latest
     agent-guard scan --json > security-report.json
-    # Check risk level
+    # 检查风险等级
     if grep -q "CRITICAL" security-report.json; then
       echo "Critical security issues found!"
       exit 1
     fi
 ```
 
-## Development
+## 开发
 
-### Build from Source
+### 从源码构建
 
 ```bash
-# Clone repository
+# 克隆仓库
 git clone https://github.com/imdlan/AIAgentGuard.git
 cd agent-guard
 
-# Build
+# 构建
 go build -o agent-guard
 
-# Run tests
+# 运行测试
 go test ./...
 
-# Install locally
+# 安装到本地
 go install
 ```
 
-### Project Structure
+### 项目结构
 
 ```
 agent-guard/
-├── cmd/              # CLI commands
-├── internal/         # Internal implementation
-│   ├── scanner/     # Scanning engines
-│   ├── risk/        # Risk analysis
-│   ├── sandbox/     # Sandbox execution
-│   ├── policy/      # Policy management
-│   ├── security/    # Security protection
-│   └── report/      # Report generation
-├── pkg/model/       # Data models
-├── configs/         # Default configuration
-└── scripts/         # Installation scripts
+├── cmd/              # CLI 命令
+├── internal/         # 内部实现
+│   ├── scanner/     # 扫描引擎
+│   ├── risk/        # 风险分析
+│   ├── sandbox/     # 沙箱执行
+│   ├── policy/      # 策略管理
+│   ├── security/    # 安全防护
+│   └── report/      # 报告生成
+├── pkg/model/       # 数据模型
+├── configs/         # 默认配置
+└── scripts/         # 安装脚本
 ```
 
-### Release Process
+### 发布流程
 
-This project uses Goreleaser for automated releases. When you push a version tag, GitHub Actions is automatically triggered:
+本项目使用 Goreleaser 自动化发布流程。当推送版本 tag 时，自动触发 GitHub Actions：
 
-1. Build multi-platform binaries (macOS/Linux, AMD64/ARM64)
-2. Create GitHub Release
-3. Generate file checksums (checksums.txt)
-4. Automatically update Homebrew formula
+1. 构建多平台二进制文件（macOS/Linux, AMD64/ARM64）
+2. 创建 GitHub Release
+3. 生成文件校验和（checksums.txt）
+4. 自动更新 Homebrew formula
 
-**Release new version**:
+**发布新版本**：
 ```bash
 git tag v1.0.1
 git push origin v1.0.1
 ```
 
-For detailed documentation, see: [Release Process Guide](doc/RELEASE.md)
+详细文档请查看：[发布流程指南](doc/RELEASE.md)
 
-### Local Testing
+### 本地测试
 
 ```bash
-# Install goreleaser
+# 安装 goreleaser
 brew install goreleaser
 
-# Test build (no release)
+# 测试构建（不发布）
 goreleaser build --clean --snapshot
 
-# Test full workflow (dry-run)
+# 测试完整流程（dry-run）
 goreleaser release --clean --snapshot --skip-publish
 ```
 
-## License
+## 许可证
 
-MIT License - see [LICENSE](LICENSE) file for details
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+欢迎贡献！请查看 [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Contact
+## 联系方式
 
 - GitHub: https://github.com/imdlan/AIAgentGuard
 - Issues: https://github.com/imdlan/AIAgentGuard/issues
@@ -361,4 +361,4 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
-**Protect your AI Agents, start with security scanning!** 🛡️
+**保护你的 AI Agent，从安全扫描开始！** 🛡️
