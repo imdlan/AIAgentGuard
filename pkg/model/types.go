@@ -12,11 +12,14 @@ const (
 
 // PermissionResult represents the scanning result for each permission type
 type PermissionResult struct {
-	Filesystem RiskLevel `json:"filesystem"`
-	Shell      RiskLevel `json:"shell"`
-	Network    RiskLevel `json:"network"`
-	Secrets    RiskLevel `json:"secrets"`
+	Filesystem  RiskLevel `json:"filesystem"`
+	Shell       RiskLevel `json:"shell"`
+	Network     RiskLevel `json:"network"`
+	Secrets     RiskLevel `json:"secrets"`
+	FileContent RiskLevel `json:"filecontent"`
+	Dependencies RiskLevel `json:"dependencies"`
 }
+
 
 // ScanReport represents the complete security scan report
 type ScanReport struct {

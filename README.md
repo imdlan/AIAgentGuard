@@ -1,18 +1,48 @@
 # AI AgentGuard
 
-🛡️ Security scanning tool for AI Agents, CLI tools, and MCP servers
+[![Version](https://img.shields.io/badge/version-v1.1.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+
 
 [English](README.md) | [简体中文](README_zh.md)
 
 ## Features
 
+### Core Security Scanning
 - **Permission Scanning** - Detect filesystem, shell, network, and secret access permissions
-- **Risk Assessment** - Intelligently analyze security threats and calculate risk levels
+- **File Content Analysis** - Scan files for exposed API keys, tokens, and secrets (15+ patterns)
+- **Process Security Monitoring** - Detect reverse shells, suspicious processes, and high CPU usage
+- **SUID/SGID Scanning** - Identify privileged executables and potential privilege escalation vectors
+
+### Advanced Features (New in v1.1.0) ⭐
+- **Dependency Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
+- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
+- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
+
+### Security & Compliance
+- **Audit Logging** - Comprehensive security event logging with JSON format and SIEM integration
+- **Risk Assessment** - Intelligently analyze security threats and calculate risk levels (85%+ coverage)
+- **Smart Command Parsing** - Advanced flag parsing to prevent bypass attempts
 - **Sandbox Execution** - Safely run commands in isolated environments
+
+### Configuration & Protection
 - **Policy Management** - Control access permissions via YAML configuration
 - **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
 - **Plugin Scanning** - Detect insecure plugins and extensions
 
+- **Permission Scanning** - Detect filesystem, shell, network, and secret access permissions
+- **File Content Analysis** - Scan files for exposed API keys, tokens, and secrets (15+ patterns)
+- **Process Security Monitoring** - Detect reverse shells, suspicious processes, and high CPU usage
+- **SUID/SGID Scanning** - Identify privileged executables and potential privilege escalation vectors
+- **Audit Logging** - Comprehensive security event logging with JSON format and SIEM integration
+- **Risk Assessment** - Intelligently analyze security threats and calculate risk levels
+- **Smart Command Parsing** - Advanced flag parsing to prevent bypass attempts
+- **Sandbox Execution** - Safely run commands in isolated environments
+- **Policy Management** - Control access permissions via YAML configuration
+- **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
+- **Plugin Scanning** - Detect insecure plugins and extensions
 ## Installation
 
 ### Method 1: Homebrew (Recommended for macOS/Linux)
@@ -362,3 +392,21 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 ---
 
 **Protect your AI Agents, start with security scanning!** 🛡️
+
+### 6. Audit Log Examples
+
+View security events:
+```bash
+# Show recent policy violations
+cat ~/.agent-guard/audit.log | jq '. | select(.event_type == "policy_violation")'
+
+# Follow audit logs in real-time
+tail -f ~/.agent-guard/audit.log | jq .
+
+# Find blocked commands
+grep "command_blocked" ~/.agent-guard/audit.log | jq .
+
+# Check for high-risk events
+grep "CRITICAL" ~/.agent-guard/audit.log | jq .
+```
+

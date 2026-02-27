@@ -1,0 +1,71 @@
+version: 1
+
+# Basic security policy for everyday use
+# Good balance of security and usability
+
+# Filesystem access rules
+filesystem:
+  allow:
+    - ./
+    - /tmp
+    - /var/log/app
+  deny:
+    - ~/.ssh
+    - ~/.gnupg
+    - ~/.aws
+    - /etc/passwd
+    - /etc/shadow
+    - ~/.config/gcloud
+
+# Shell command rules
+shell:
+  allow:
+    - ls
+    - cat
+    - echo
+    - pwd
+    - cd
+    - grep
+    - head
+    - tail
+    - find
+    - xargs
+  deny:
+    - rm
+    - sudo
+    - su
+    - curl
+    - wget
+    - nc
+    - netcat
+    - chmod 777
+    - dd
+    - mkfs
+
+# Network access rules
+network:
+  allow:
+    - api.github.com
+    - cdn.jsdelivr.net
+    - registry.npmjs.org
+    - pypi.org
+  deny:
+    - "*"
+
+# Secrets protection
+secrets:
+  block_env:
+    - AWS_SECRET_ACCESS_KEY
+    - AWS_SESSION_TOKEN
+    - GITHUB_TOKEN
+    - OPENAI_API_KEY
+    - ANTHROPIC_API_KEY
+    - GOOGLE_API_KEY
+    - DATABASE_URL
+    - REDIS_PASSWORD
+    - SSH_PRIVATE_KEY
+
+# Sandbox configuration
+sandbox:
+  disable_network: true
+  readonly_root: false

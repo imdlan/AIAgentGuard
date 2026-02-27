@@ -1,18 +1,36 @@
 # AI AgentGuard
 
+[![Version](https://img.shields.io/badge/version-v1.1.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 🛡️ AI Agent、CLI 工具和 MCP 服务器的安全扫描工具
 
 [English](README.md) | [简体中文](README_zh.md)
 
 ## 功能特性
 
+### 核心安全扫描
 - **权限扫描** - 检测文件系统、Shell、网络和机密访问权限
-- **风险评估** - 智能分析安全威胁并计算风险等级
+- **文件内容分析** - 扫描文件中的暴露 API 密钥、令牌和机密信息（15+ 种模式）
+- **进程安全监控** - 检测反向 shell、可疑进程和高 CPU 使用率
+- **SUID/SGID 扫描** - 识别特权可执行文件和潜在的权限提升向量
+
+### 高级功能（v1.1.0 新增）⭐
+- **依赖漏洞扫描** - 使用 golang.org/x/vuln 检查 Go 依赖中的已知 CVE 漏洞
+- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm 环境
+- **真·沙盒隔离** - 基于 containerd 的容器隔离，使用 Linux 命名空间（仅 Linux）
+
+### 安全与合规
+- **审计日志** - 全面的安全事件日志，支持 JSON 格式和 SIEM 集成
+- **风险评估** - 智能分析安全威胁并计算风险等级（85%+ 覆盖率）
+- **智能命令解析** - 高级标志解析，防止绕过尝试
 - **沙箱执行** - 在隔离环境中安全运行命令
+
+### 配置与防护
 - **策略管理** - 通过 YAML 配置文件控制访问权限
 - **提示注入防护** - 检测和阻止恶意提示注入攻击
 - **插件扫描** - 检测不安全的插件和扩展
-
 ## 安装方式
 
 ### 方式 1: Homebrew（推荐 macOS/Linux）

@@ -8,7 +8,6 @@ import (
 	"github.com/imdlan/AIAgentGuard/pkg/model"
 )
 
-
 // PrintConsole formats and prints the scan report to console
 func PrintConsole(report model.ScanReport) {
 	fmt.Println()
@@ -74,8 +73,6 @@ func printFullBanner() {
 	fmt.Println()
 	fmt.Println("                                 🛡️  Security Scan Report v1.0                        ")
 }
-
-
 
 // printPermissionStatus prints a permission status with indicator
 func printPermissionStatus(label string, level model.RiskLevel) {
@@ -148,5 +145,3 @@ func PrintCompact(report model.ScanReport) {
 	}
 	fmt.Println(strings.Join(parts, " | "))
 }
-
-

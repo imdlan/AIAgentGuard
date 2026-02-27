@@ -4,17 +4,17 @@ import (
 	"github.com/imdlan/AIAgentGuard/pkg/model"
 )
 
-// RunAllScans executes all security scans and returns the combined result
 func RunAllScans() model.PermissionResult {
 	return model.PermissionResult{
-		Filesystem: ScanFilesystem(),
-		Shell:      ScanShell(),
-		Network:    ScanNetwork(),
-		Secrets:    ScanSecrets(),
+		Filesystem:  ScanFilesystem(),
+		Shell:       ScanShell(),
+		Network:     ScanNetwork(),
+		Secrets:     ScanSecrets(),
+		FileContent: ScanFileContents(),
+		Dependencies: ScanDependencies(),
 	}
 }
 
-// RunSpecificScan executes a specific security scan by category
 func RunSpecificScan(category string) model.RiskLevel {
 	switch category {
 	case "filesystem":
@@ -25,6 +25,10 @@ func RunSpecificScan(category string) model.RiskLevel {
 		return ScanNetwork()
 	case "secrets":
 		return ScanSecrets()
+	case "filecontent":
+		return ScanFileContents()
+	case "dependencies":
+		return ScanDependencies()
 	default:
 		return model.Low
 	}

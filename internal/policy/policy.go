@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/imdlan/AIAgentGuard/internal/audit"
 	"github.com/imdlan/AIAgentGuard/pkg/model"
 	"gopkg.in/yaml.v3"
 )
@@ -114,11 +115,13 @@ func IsPathAllowed(path string, cfg *model.PolicyConfig) bool {
 
 		matched, err := filepath.Match(denyExpanded, expandedPath)
 		if err == nil && matched {
+			_ = audit.LogPolicyViolation("filesystem", path, fmt.Sprintf("matches deny pattern: %s", denyPattern))
 			return false
 		}
 
 		// Check if path is within denied directory
 		if strings.HasPrefix(expandedPath, denyExpanded+string(filepath.Separator)) {
+			_ = audit.LogPolicyViolation("filesystem", path, fmt.Sprintf("within denied directory: %s", denyPattern))
 			return false
 		}
 	}
@@ -144,6 +147,8 @@ func IsPathAllowed(path string, cfg *model.PolicyConfig) bool {
 		}
 	}
 
+	// Log denial if not in allow list
+	_ = audit.LogPolicyViolation("filesystem", path, "not in allow list")
 	return false
 }
 
@@ -160,6 +165,8 @@ func IsCommandAllowed(cmd string, cfg *model.PolicyConfig) bool {
 	// Check deny list first
 	for _, denyCmd := range cfg.Shell.Deny {
 		if strings.Contains(baseCmd, denyCmd) {
+			_ = audit.LogPolicyViolation("shell", cmd, fmt.Sprintf("matches deny pattern: %s", denyCmd))
+			_ = audit.LogCommandBlocked(cmd, fmt.Sprintf("blocked by deny list: %s", denyCmd))
 			return false
 		}
 	}
@@ -176,6 +183,8 @@ func IsCommandAllowed(cmd string, cfg *model.PolicyConfig) bool {
 		}
 	}
 
+	_ = audit.LogPolicyViolation("shell", cmd, "not in allow list")
+	_ = audit.LogCommandBlocked(cmd, "not in allow list")
 	return false
 }
 
@@ -201,6 +210,8 @@ func ApplyEnvPolicy(env []string, cfg *model.PolicyConfig) []string {
 
 		if !ShouldBlockEnv(parts[0], cfg) {
 			filtered = append(filtered, e)
+		} else {
+			_ = audit.LogPolicyViolation("secrets", parts[0], "blocked by secrets policy")
 		}
 	}
 
