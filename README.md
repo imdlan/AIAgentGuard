@@ -4,6 +4,11 @@
 [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+## Screenshots
+
+![Web UI Dashboard](AIAgentGuard-Screenshot-2.png)
+
+![Security Scan Report](AIAgentGuard-Screenshot-1.png)
 
 [English](README.md) | [简体中文](README_zh.md)
 

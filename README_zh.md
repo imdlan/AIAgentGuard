@@ -4,6 +4,12 @@
 [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+## 截图展示
+
+![Web UI 仪表板](AIAgentGuard-Screenshot-2.png)
+
+![安全扫描报告](AIAgentGuard-Screenshot-1.png)
+
 🛡️ AI Agent、CLI 工具和 MCP 服务器的安全扫描工具
 
 [English](README.md) | [简体中文](README_zh.md)
