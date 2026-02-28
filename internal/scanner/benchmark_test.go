@@ -72,7 +72,7 @@ func BenchmarkKeyPatternMatching(b *testing.B) {
 
 	testFile := filepath.Join(tmpDir, "test.env")
 	content := "AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE\n" +
-		"SECRET_TOKEN=ghp_1234567890abcdefghijklmnopqrstuvwxyz1234\n" +
+		"SECRET_TOKEN=ghp_1234567890abcdefghijklmnopqrstuvwxyz1234\n"
 	if err := os.WriteFile(testFile, []byte(content), 0644); err != nil {
 		b.Fatal(err)
 	}

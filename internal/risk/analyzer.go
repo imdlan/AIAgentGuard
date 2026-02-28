@@ -24,6 +24,19 @@ func Analyze(result model.PermissionResult) model.ScanReport {
 	}
 }
 
+// AnalyzeWithDetails performs risk analysis using pre-collected detailed information
+func AnalyzeWithDetails(result model.PermissionResult, details []model.RiskDetail) model.ScanReport {
+	overall := calculateOverallRisk(result)
+
+	return model.ScanReport{
+		ToolName: "local-agent",
+		Results:  result,
+		Overall:  overall,
+		Details:  details,
+	}
+}
+
+
 // calculateOverallRisk determines the overall risk level based on individual scan results
 func calculateOverallRisk(result model.PermissionResult) model.RiskLevel {
 	// Critical risks take highest priority

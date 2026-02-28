@@ -1,0 +1,42 @@
+# Prometheus configuration for AIAgentGuard
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'agent-guard-monitor'
+
+# Alertmanager configuration (optional)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets:
+#             - localhost:9093
+
+# Load rules once and periodically evaluate them
+rule_files:
+  # - "agent_guard_alerts.yml"
+
+# Scrape configurations
+scrape_configs:
+  # AIAgentGuard metrics
+  - job_name: 'agent-guard'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'agent-guard'
+          env: 'production'
+    
+    # Optional: add custom metrics path
+    metrics_path: '/metrics'
+    
+    # Scrape interval (optional, overrides global)
+    scrape_interval: 15s
+    
+    # Scrape timeout (optional)
+    scrape_timeout: 10s
+
+  # Prometheus self-monitoring (optional)
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9091']

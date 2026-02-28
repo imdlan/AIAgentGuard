@@ -1,0 +1,84 @@
+groups:
+  - name: agent_guard_alerts
+    interval: 30s
+    rules:
+      # Critical vulnerabilities alert
+      - alert: CriticalVulnerabilitiesDetected
+        expr: sum(agent_guard_vulnerabilities_total{severity="critical"}) > 0
+        for: 5m
+        labels:
+          severity: critical
+          component: vulnerability-scanner
+        annotations:
+          summary: "Critical vulnerabilities detected in dependencies"
+          description: "{{ $value }} critical vulnerabilities found in {{ $labels.language }} packages"
+          runbook_url: "https://github.com/imdlan/AIAgentGuard/doc/MONITORING.md"
+
+      # High vulnerability count alert
+      - alert: HighVulnerabilityCount
+        expr: sum(agent_guard_vulnerabilities_total{severity=~"high|critical"}) > 10
+        for: 10m
+        labels:
+          severity: warning
+          component: vulnerability-scanner
+        annotations:
+          summary: "High number of vulnerabilities detected"
+          description: "{{ $value }} high/critical vulnerabilities found"
+
+      # Scan duration alert
+      - alert: ScanDurationTooHigh
+        expr: histogram_quantile(0.95, agent_guard_scan_duration_seconds) > 300
+        for: 15m
+        labels:
+          severity: warning
+          component: scanner
+        annotations:
+          summary: "Scans taking too long to complete"
+          description: "95th percentile scan duration is {{ $value }}s (threshold: 300s)"
+
+      # Component failure rate alert
+      - alert: HighComponentFailureRate
+        expr: |
+          rate(agent_guard_component_failures_total[5m]) 
+          / rate(agent_guard_component_scans_total[5m]) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "High component failure rate detected"
+          description: "Component failure rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      # Memory usage alert
+      - alert: HighMemoryUsage
+        expr: agent_guard_memory_usage_bytes > 1073741824
+        for: 10m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "AIAgentGuard memory usage is high"
+          description: "Memory usage is {{ $value | humanize }} (threshold: 1GB)"
+
+      # No recent scans alert
+      - alert: NoRecentScans
+        expr: time() - agent_guard_last_scan_timestamp > 3600
+        for: 5m
+        labels:
+          severity: info
+          component: scanner
+        annotations:
+          summary: "No scans completed in the last hour"
+          description: "Last scan was {{ $value | humanizeDuration }} ago"
+
+      # Vulnerability spike detection
+      - alert: VulnerabilitySpike
+        expr: |
+          increase(agent_guard_vulnerabilities_total{severity="critical"}[1h]) > 5
+        for: 5m
+        labels:
+          severity: critical
+          component: vulnerability-scanner
+        annotations:
+          summary: "Spike in critical vulnerabilities detected"
+          description: "{{ $value }} new critical vulnerabilities discovered in the last hour"

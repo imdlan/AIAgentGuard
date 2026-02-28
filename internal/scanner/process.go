@@ -69,6 +69,100 @@ func ScanProcesses() model.RiskLevel {
 	return model.Low
 }
 
+// ScanProcessesDetailed scans for suspicious processes and returns detailed information
+func ScanProcessesDetailed() (model.RiskLevel, []model.RiskDetail) {
+	details := []model.RiskDetail{}
+
+	// Get running processes
+	processes, err := getRunningProcesses()
+	if err != nil {
+		return model.Low, details
+	}
+
+	// Check for reverse shells
+	reverseShells := detectReverseShells(processes)
+	// Check for high CPU usage
+	highCPU := detectHighCPUUsage(processes)
+	// Check for suspicious process names
+	suspiciousNames := detectSuspiciousProcessNames(processes)
+
+	// Combine all suspicious processes
+	allSuspicious := append(reverseShells, highCPU...)
+	allSuspicious = append(allSuspicious, suspiciousNames...)
+
+	if len(allSuspicious) == 0 {
+		return model.Low, details
+	}
+
+	// Convert to model.ProcessInfo format
+	suspiciousProcs := []model.ProcessInfo{}
+	for _, proc := range allSuspicious {
+		// Extract process name from command
+		nameParts := strings.Fields(proc.Command)
+		name := "unknown"
+		if len(nameParts) > 0 {
+			name = nameParts[0]
+		}
+		
+		suspiciousProcs = append(suspiciousProcs, model.ProcessInfo{
+			PID:         proc.PID,
+			Name:        name,
+			CommandLine: proc.Command,
+			User:        proc.UserName,
+			RiskReason:  proc.Reason,
+		})
+	}
+
+	// Determine overall risk
+	risk := model.Low
+	for _, proc := range allSuspicious {
+		if proc.Risk == model.High || proc.Risk == model.Critical {
+			risk = model.High
+			break
+		}
+	}
+	if risk == model.Low && len(allSuspicious) > 2 {
+		risk = model.Medium
+	}
+
+	// Build detail
+	detail := model.RiskDetail{
+		Type:        risk,
+		Category:    "process",
+		Description: fmt.Sprintf("发现 %d 个可疑进程", len(allSuspicious)),
+		Details: model.RiskSpecificInfo{
+			SuspiciousProcs: suspiciousProcs,
+		},
+	}
+
+	if risk == model.High || risk == model.Critical {
+		detail.Remediation = model.RemediationInfo{
+			Summary: "立即调查并终止可疑进程",
+			Steps: []model.RemediationStep{
+				{
+					Step:        1,
+					Action:      "查看进程详情",
+					Command:     "ps -p <PID> -f",
+					Explanation: "查看进程的完整命令行和启动信息",
+				},
+				{
+					Step:        2,
+					Action:      "终止可疑进程",
+					Command:     "kill <PID>",
+					Explanation: "如果确认是恶意进程，终止它",
+				},
+			},
+			Commands:    []string{"ps aux | grep <process_name>"},
+			Priority:    "CRITICAL",
+			RiskAfter:    model.Low,
+		}
+	}
+
+	details = append(details, detail)
+	return risk, details
+}
+
+
 // getRunningProcesses retrieves a list of running processes
 func getRunningProcesses() ([]ProcessInfo, error) {
 	var processes []ProcessInfo

@@ -1,6 +1,14 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.1.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Version](https://img.shields.io/badge/version-v1.3.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+🛡️ AI Agent、CLI 工具和 MCP 服务器的安全扫描工具
+
+[English](README.md) | [简体中文](README_zh.md)
+
+[![Version](https://img.shields.io/badge/version-v1.2.0--beta-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
 [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -16,7 +24,31 @@
 - **进程安全监控** - 检测反向 shell、可疑进程和高 CPU 使用率
 - **SUID/SGID 扫描** - 识别特权可执行文件和潜在的权限提升向量
 
-### 高级功能（v1.1.0 新增）⭐
+### 高级功能（v1.3.0 新增）⭐
+- **详细安全报告** - 显示造成安全风险的具体文件、进程和命令
+- **进程扫描详情** - 识别可疑进程，显示 PID、命令行和风险原因
+- **网络连接分析** - 显示开放端口和活跃连接，附带安全评估
+- **自动修复向导** - 自动修复安全问题或提供手动修复命令
+- **风险趋势分析** - 对比历史扫描结果，追踪安全态势变化
+- **多语言依赖漏洞扫描** - 支持 Go、npm、pip、cargo 依赖漏洞扫描
+- **Prometheus 监控** - 导出指标用于监控和告警
+- **Web UI 仪表板** - 可视化安全监控，支持实时更新
+
+### v1.2.0 功能
+- **多语言依赖漏洞扫描** - 支持 Go、npm、pip、cargo 依赖漏洞扫描
+- **Prometheus 监控** - 导出指标用于监控和告警
+- **Go 依赖漏洞扫描** - 使用 golang.org/x/vuln 检查已知 CVE
+- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm
+- **真·沙盒隔离** - 基于 containerd 的容器隔离（仅 Linux）
+- **多语言依赖漏洞扫描** - 支持 Go、npm、pip、cargo 依赖漏洞扫描
+- **依赖漏洞扫描** - 使用 golang.org/x/vuln 检查 Go 依赖中的已知 CVE 漏洞
+- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm 环境
+- **真·沙盒隔离** - 基于 containerd 的容器隔离，使用 Linux 命名空间（仅 Linux）
+
+### v1.1.0 功能
+- **Go 依赖扫描** - 使用 golang.org/x/vuln 检查 Go 依赖中的已知 CVE
+- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm 环境
+- **真·沙盒隔离** - 基于 containerd 的容器隔离
 - **依赖漏洞扫描** - 使用 golang.org/x/vuln 检查 Go 依赖中的已知 CVE 漏洞
 - **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm 环境
 - **真·沙盒隔离** - 基于 containerd 的容器隔离，使用 Linux 命名空间（仅 Linux）
@@ -114,7 +146,20 @@ agent-guard report
 
 # 保存到文件
 agent-guard report --json > security-report.json
+
+### 4. Prometheus 监控（新增）
+
+```bash
+# 使用 Prometheus 指标运行扫描
+agent-guard scan --metrics-addr :9090
+
+# 指标可在 http://localhost:9090/metrics 获取
+# curl http://localhost:9090/metrics
 ```
+
+详细监控设置请参阅[监控指南](doc/MONITORING.md)。
+
+### 5. 初始化配置
 
 ### 4. 初始化配置
 
@@ -257,6 +302,43 @@ agent-guard init [flags]
   --force    覆盖已存在的配置文件
   --path     指定配置文件路径
 ```
+
+### fix - 安全修复向导
+
+自动修复安全问题或提供修复指导。
+
+```bash
+agent-guard fix [flags]
+
+选项:
+  --auto       自动执行修复命令
+  --dry-run    预览更改而不执行
+  --category   仅修复特定类别（filesystem、shell、network、secrets）
+```
+
+### trend - 风险趋势分析
+
+通过对比历史扫描结果分析安全趋势。
+
+```bash
+agent-guard trend [flags]
+
+选项:
+  --days N    分析最近 N 天的数据（默认：7）
+  --json      以 JSON 格式输出
+  --category  显示特定类别的趋势
+```
+## 完整使用指南
+
+详细的使用指南和最佳实践，请参阅：[USAGE_zh.md](USAGE_zh.md)
+
+内容包括：
+- 所有使用场景的详细说明
+- CLI 命令完整参考
+- Web UI 使用方法
+- 监控和告警配置
+- 部署和维护指南
+- 故障排除方案
 
 ## 常见问题
 

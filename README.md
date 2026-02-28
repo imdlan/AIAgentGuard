@@ -1,6 +1,13 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.1.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Version](https://img.shields.io/badge/version-v1.3.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+
+[English](README.md) | [简体中文](README_zh.md)
+
+[![Version](https://img.shields.io/badge/version-v1.2.0--beta-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
 [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -16,7 +23,35 @@
 - **Process Security Monitoring** - Detect reverse shells, suspicious processes, and high CPU usage
 - **SUID/SGID Scanning** - Identify privileged executables and potential privilege escalation vectors
 
-### Advanced Features (New in v1.1.0) ⭐
+### Advanced Features (New in v1.3.0) ⭐
+- **Detailed Security Reporting** - Show specific files, processes, and commands causing security risks
+- **Process Scanning Details** - Identify suspicious processes with PID, command line, and risk reasons
+- **Network Connection Analysis** - Display open ports and active connections with security assessment
+- **Automated Fix Wizard** - Auto-fix security issues or provide manual remediation commands
+- **Risk Trend Analysis** - Compare scan results over time to track security posture changes
+- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
+- **Prometheus Monitoring** - Export metrics for monitoring and alerting
+- **Web UI Dashboard** - Visual security monitoring with real-time updates
+
+### v1.2.0 Features
+- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies
+- **Prometheus Monitoring** - Export metrics for monitoring and alerting
+- **Go Vulnerability Scanning** - Check Go dependencies for known CVEs
+- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
+- **True Sandbox Isolation** - containerd-based container isolation (Linux only)
+- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
+- **Prometheus Monitoring** - Export metrics for monitoring and alerting
+- **Go Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
+- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
+- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
+- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
+- **Go Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
+- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
+- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
+
+### v1.1.0 Features
+- **Go Dependency Scanning** - Check Go dependencies for known CVEs
+- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
 - **Dependency Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
 - **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
 - **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
@@ -31,6 +66,8 @@
 - **Policy Management** - Control access permissions via YAML configuration
 - **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
 - **Plugin Scanning** - Detect insecure plugins and extensions
+
+## Installation
 
 - **Permission Scanning** - Detect filesystem, shell, network, and secret access permissions
 - **File Content Analysis** - Scan files for exposed API keys, tokens, and secrets (15+ patterns)
@@ -128,6 +165,19 @@ agent-guard report
 agent-guard report --json > security-report.json
 ```
 
+### 4. Monitor with Prometheus (New)
+
+```bash
+# Run scan with Prometheus metrics
+agent-guard scan --metrics-addr :9090
+
+# Metrics available at http://localhost:9090/metrics
+# curl http://localhost:9090/metrics
+```
+
+For detailed monitoring setup, see [Monitoring Guide](doc/MONITORING.md).
+
+### 5. Initialize Configuration
 ### 4. Initialize Configuration
 
 ```bash
@@ -268,7 +318,47 @@ agent-guard init [flags]
 Options:
   --force    Overwrite existing configuration file
   --path     Specify configuration file path
+Options:
+  --force    Overwrite existing configuration file
+  --path     Specify configuration file path
 ```
+
+### fix - Security Fix Wizard
+
+Automatically fix security issues or provide remediation guidance.
+
+```bash
+agent-guard fix [flags]
+
+Options:
+  --auto       Automatically execute fix commands
+  --dry-run    Preview changes without executing
+  --category   Fix specific category only (filesystem, shell, network, secrets)
+```
+
+### trend - Risk Trend Analysis
+
+Analyze security trends by comparing scan results over time.
+
+```bash
+agent-guard trend [flags]
+
+Options:
+  --days N    Analyze last N days (default: 7)
+  --json      Output in JSON format
+  --category  Show trend for specific category
+```
+## Complete Usage Guide
+
+For detailed usage guide and best practices, see: [USAGE.md](USAGE.md)
+
+Topics covered:
+- Detailed explanations of all use cases
+- Complete CLI command reference
+- Web UI usage instructions
+- Monitoring and alerting setup
+- Deployment and maintenance guides
+- Troubleshooting solutions
 
 ## FAQ
 

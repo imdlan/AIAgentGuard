@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # AIAgentGuard with Metrics
+  agent-guard:
+    build: .
+    container_name: agent-guard
+    command: scan --metrics-addr :9090
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./configs:/app/configs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+    environment:
+      - METRICS_ADDR=:9090
+    networks:
+      - monitoring
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./configs/prometheus_rules.yml:/etc/prometheus/rules.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - agent-guard
+
+  # Grafana
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./configs/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/agent-guard.json:ro
+      - ./configs/grafana-datasource.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost:3000
+      - GF_INSTALL_PLUGINS=
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+
+  # Optional: Node Exporter for system metrics
+  node-exporter:
+    image: prom/node-exporter:v1.6.0
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/host'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+      - '/proc:/host/proc:ro'
+      - '/sys:/host/sys:ro'
+      - '/:/host:ro,rslave'
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

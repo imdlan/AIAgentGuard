@@ -1,0 +1,130 @@
+.trend-history-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  color: #1f2937;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.days-selector {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.refresh-button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.refresh-button:hover {
+  background: #2563eb;
+}
+
+.refresh-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.period-info {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 4px;
+}
+
+.period-label {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.period-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.trend-table {
+  overflow-x: auto;
+}
+
+.trend-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trend-table th,
+.trend-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.trend-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.trend-table th:first-child,
+.trend-table td:first-child {
+  text-align: left;
+}
+
+.risk-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.risk-badge.small {
+  padding: 2px 8px;
+  font-size: 0.85em;
+}
+
+.trend-icon {
+  font-size: 1.2em;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  font-size: 1.1em;
+}
+
+.error-message {
+  background: #fef2f2;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}

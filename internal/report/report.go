@@ -35,17 +35,17 @@ func PrintConsole(report model.ScanReport) {
 		fmt.Println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 		fmt.Println("Detailed Findings:")
 		fmt.Println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-		for i, detail := range report.Details {
-			fmt.Printf("%d. [%s] %s", i+1, detail.Type, detail.Description)
-			if detail.Path != "" {
-				fmt.Printf(" (%s)", detail.Path)
+
+		// Group details by category for better readability
+		byCategory := groupDetailsByCategory(report.Details)
+
+		for _, category := range []string{"filesystem", "shell", "network", "secrets"} {
+			if details, ok := byCategory[category]; ok {
+				printDetailedCategory(category, details)
 			}
-			if detail.Category != "" {
-				fmt.Printf(" [%s]", detail.Category)
-			}
-			fmt.Println()
 		}
 	}
+
 
 	// Recommendations
 	fmt.Println()
@@ -144,4 +144,112 @@ func PrintCompact(report model.ScanReport) {
 		fmt.Sprintf("Secrets:%s", report.Results.Secrets),
 	}
 	fmt.Println(strings.Join(parts, " | "))
+}
+
+
+// groupDetailsByCategory groups risk details by their category
+func groupDetailsByCategory(details []model.RiskDetail) map[string][]model.RiskDetail {
+	byCategory := make(map[string][]model.RiskDetail)
+	for _, detail := range details {
+		byCategory[detail.Category] = append(byCategory[detail.Category], detail)
+	}
+	return byCategory
+}
+
+// printDetailedCategory prints detailed information for a specific category
+func printDetailedCategory(category string, details []model.RiskDetail) {
+	fmt.Println()
+	switch category {
+	case "filesystem":
+		fmt.Printf("📁 Filesystem Risk\n")
+		for _, detail := range details {
+			fmt.Printf("  %s %s\n", getRiskSymbol(detail.Type), detail.Description)
+			if len(detail.Details.AffectedPaths) > 0 {
+				for _, path := range detail.Details.AffectedPaths {
+					fmt.Printf("     └─ %s\n", path.Path)
+					fmt.Printf("        └─ Risk: %s\n", path.RiskReason)
+					fmt.Printf("        └─ Permission: %s\n", path.Permission)
+					fmt.Printf("        └─ Writable: %v\n", path.IsWritable)
+				}
+			}
+			// Print remediation if available
+			if detail.Remediation.Summary != "" {
+				printRemediation(detail.Remediation)
+			}
+		}
+
+	case "shell":
+		fmt.Printf("💻 Shell Risk\n")
+		for _, detail := range details {
+			fmt.Printf("  %s %s\n", getRiskSymbol(detail.Type), detail.Description)
+			if detail.Details.ShellAvailable != "" {
+				fmt.Printf("     └─ Available Shells: %s\n", detail.Details.ShellAvailable)
+			}
+			if detail.Details.HasSudoAccess {
+				fmt.Printf("     └─ ⚠️  Sudo Access: ENABLED\n")
+				if detail.Details.SudoSource != "" {
+					fmt.Printf("        └─ Source: %s\n", detail.Details.SudoSource)
+				}
+				if len(detail.Details.SudoRules) > 0 {
+					fmt.Printf("        └─ Rules:\n")
+					for _, rule := range detail.Details.SudoRules {
+						fmt.Printf("           - %s\n", rule)
+					}
+				}
+			}
+			// Print remediation if available
+			if detail.Remediation.Summary != "" {
+				printRemediation(detail.Remediation)
+			}
+		}
+
+	case "network":
+		fmt.Printf("🌐 Network Risk\n")
+		for _, detail := range details {
+			fmt.Printf("  %s %s\n", getRiskSymbol(detail.Type), detail.Description)
+			if len(detail.Details.OpenPorts) > 0 {
+				for _, port := range detail.Details.OpenPorts {
+					fmt.Printf("     └─ Port %d/%s\n", port.Port, port.Protocol)
+					fmt.Printf("        └─ Service: %s\n", port.Service)
+					fmt.Printf("        └─ Risk: %s\n", port.RiskReason)
+				}
+			}
+		}
+
+	case "secrets":
+		fmt.Printf("🔑 Secrets Risk\n")
+		for _, detail := range details {
+			fmt.Printf("  %s %s\n", getRiskSymbol(detail.Type), detail.Description)
+			if detail.Path != "" {
+				fmt.Printf("     └─ Exposed: %s\n", detail.Path)
+			}
+			if len(detail.Details.ExposedSecrets) > 0 {
+				for _, secret := range detail.Details.ExposedSecrets {
+					fmt.Printf("     └─ %s: %s\n", secret.Type, secret.Value)
+					fmt.Printf("        └─ Location: %s\n", secret.Location)
+				}
+			}
+		}
+	}
+}
+
+// printRemediation prints remediation steps
+func printRemediation(remediation model.RemediationInfo) {
+	fmt.Println()
+	fmt.Printf("  💡 Remediation: %s\n", remediation.Summary)
+	if len(remediation.Steps) > 0 {
+		fmt.Println("  Steps:")
+		for _, step := range remediation.Steps {
+			fmt.Printf("     %d. %s\n", step.Step, step.Action)
+			fmt.Printf("        Command: %s\n", step.Command)
+			fmt.Printf("        Explanation: %s\n", step.Explanation)
+		}
+	}
+	if len(remediation.Commands) > 0 {
+		fmt.Println("  Commands to run:")
+		for _, cmd := range remediation.Commands {
+			fmt.Printf("     $ %s\n", cmd)
+		}
+	}
+	fmt.Printf("  Priority: %s\n", remediation.Priority)
 }

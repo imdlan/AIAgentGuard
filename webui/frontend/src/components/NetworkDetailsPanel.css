@@ -1,0 +1,99 @@
+.network-details-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.network-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section {
+  margin-top: 20px;
+}
+
+.section h4 {
+  margin-bottom: 15px;
+  color: #374151;
+}
+
+.ports-table table,
+.connections-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ports-table th,
+.ports-table td,
+.connections-table th,
+.connections-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ports-table th,
+.connections-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.state-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.state-badge.established {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.state-badge.listen {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.state-badge.time_wait,
+.state-badge.close_wait {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.risk-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.risk-badge.low {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.risk-badge.high {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #10b981;
+  font-size: 1.1em;
+}
+
+.error-message {
+  background: #fef2f2;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}

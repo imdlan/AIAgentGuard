@@ -1,0 +1,291 @@
+.metrics-panel {
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.metrics-panel.loading,
+.metrics-panel.error {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
+.metrics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #333;
+}
+
+.metrics-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #e0e0e0;
+}
+
+.last-update {
+  font-size: 12px;
+  color: #888;
+}
+
+.metrics-section {
+  margin-bottom: 32px;
+}
+
+.metrics-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  color: #b0b0b0;
+}
+
+.metrics-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  background: #252525;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.metric-icon {
+  font-size: 32px;
+}
+
+.metric-content {
+  flex: 1;
+}
+
+.metric-title {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e0e0e0;
+  margin-bottom: 4px;
+}
+
+.metric-trend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.trend-value {
+  color: #4caf50;
+}
+
+.trend-label {
+  color: #888;
+}
+
+/* Vulnerability Grid */
+.vulnerability-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.vuln-card {
+  background: #252525;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.vuln-critical {
+  border-color: #f44336;
+}
+
+.vuln-high {
+  border-color: #ff9800;
+}
+
+.vuln-medium {
+  border-color: #ffeb3b;
+}
+
+.vuln-low {
+  border-color: #4caf50;
+}
+
+.vuln-count {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.vuln-critical .vuln-count {
+  color: #f44336;
+}
+
+.vuln-high .vuln-count {
+  color: #ff9800;
+}
+
+.vuln-medium .vuln-count {
+  color: #ffeb3b;
+}
+
+.vuln-low .vuln-count {
+  color: #4caf50;
+}
+
+.vuln-label {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.vuln-bar {
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.vuln-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.vuln-critical .vuln-fill {
+  background: linear-gradient(90deg, #f44336, #d32f2f);
+}
+
+.vuln-high .vuln-fill {
+  background: linear-gradient(90deg, #ff9800, #f57c00);
+}
+
+.vuln-medium .vuln-fill {
+  background: linear-gradient(90deg, #ffeb3b, #fbc02d);
+}
+
+.vuln-low .vuln-fill {
+  background: linear-gradient(90deg, #4caf50, #388e3c);
+}
+
+.vuln-percentage {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Language Bars */
+.language-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.language-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.lang-name {
+  min-width: 60px;
+  font-size: 14px;
+  color: #b0b0b0;
+  font-weight: 500;
+}
+
+.bar-container {
+  flex: 1;
+  height: 24px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2196f3, #1976d2);
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.lang-count {
+  min-width: 40px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+/* Duration Stats */
+.duration-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.duration-stat {
+  background: #252525;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.duration-stat .label {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.duration-stat .value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .metrics-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .vulnerability-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .duration-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .metrics-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

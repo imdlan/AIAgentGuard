@@ -7,6 +7,9 @@ import (
 
 // TestAuditLoggerInitialization tests logger initialization
 func TestAuditLoggerInitialization(t *testing.T) {
+	// Reset for clean test state
+	ResetForTesting()
+	
 	tmpDir, err := os.MkdirTemp("", "audit-test-*")
 	if err != nil {
 		t.Fatalf("Failed to create temp dir: %v", err)
@@ -29,9 +32,11 @@ func TestAuditLoggerInitialization(t *testing.T) {
 		t.Errorf("GetLogFilePath() = %v, want %v", got, logPath)
 	}
 }
-
 // TestLogEvent tests basic event logging
 func TestLogEvent(t *testing.T) {
+	// Reset for clean test state
+	ResetForTesting()
+	
 	tmpDir, err := os.MkdirTemp("", "audit-test-*")
 	if err != nil {
 		t.Fatalf("Failed to create temp dir: %v", err)
@@ -65,6 +70,9 @@ func TestLogEvent(t *testing.T) {
 
 // TestConvenienceFunctions tests convenience logging functions
 func TestConvenienceFunctions(t *testing.T) {
+	// Reset for clean test state
+	ResetForTesting()
+	
 	tmpDir, err := os.MkdirTemp("", "audit-test-*")
 	if err != nil {
 		t.Fatalf("Failed to create temp dir: %v", err)

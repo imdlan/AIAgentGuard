@@ -379,3 +379,14 @@ func init() {
 		_ = InitDefault()
 	}
 }
+
+// ResetForTesting resets the global logger for testing purposes
+// This should only be used in tests to ensure clean state between test runs
+func ResetForTesting() {
+	if defaultLogger != nil && defaultLogger.fileHandle != nil {
+		defaultLogger.fileHandle.Close()
+	}
+	defaultLogger = nil
+	once = *new(sync.Once)
+}
+

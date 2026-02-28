@@ -5,7 +5,7 @@ import (
 )
 
 	// version is set at build time using ldflags
-var version = "v1.1.0"
+var version = "v1.2.0-beta"
 
 func main() {
 	cmd.Execute()
