@@ -5,12 +5,10 @@
 
 ## 截图展示
 <div align="center">
-![Web UI 仪表板](AIAgentGuard-Screenshot-2.png)
-![安全扫描报告](AIAgentGuard-Screenshot-1.png)
-
-🛡️ AI AgentGuard 是一种面向 AI 代理、CLI 工具和 MCP 服务器的安全检测工具。它扫描权限风险，评估安全威胁，并提供沙箱执行环境。
-
-[English](README.md) | [简体中文](README_zh.md)
+  <img src="AIAgentGuard-Screenshot-2.png" alt="AgentGuard CLI" />
+  <img src="AIAgentGuard-Screenshot-1.png" alt="Security Scan Report" />
+  <p><strong>AI AgentGuard 是一种面向 AI 代理、CLI 工具和 MCP 服务器的安全检测工具。它扫描权限风险，评估安全威胁，并提供沙箱执行环境。</strong></p>
+  <p><a href="README.md">English</a> | <a href="README_zh.md">简体中文</a></p>
 </div>
 
 ## 功能特性
@@ -452,4 +450,4 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ---
 
-**保护你的 AI Agent，从安全扫描开始！** 🛡️
+**保护你的 AI Agent，从安全扫描开始！** 

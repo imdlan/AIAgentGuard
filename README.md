@@ -4,12 +4,10 @@
 
 ## Screenshots
 <div align="center">
-![Web UI Dashboard](AIAgentGuard-Screenshot-2.png)
-![Security Scan Report](AIAgentGuard-Screenshot-1.png)
-
-🛡️AI AgentGuard is a security tool for AI agents, CLI tools, and MCP servers.It scans for permission risks, evaluates security threats, and providessandboxed execution environments.
-
-[English](README.md) | [简体中文](README_zh.md)
+  <img src="AIAgentGuard-Screenshot-2.png" alt="AgentGuard CLI" />
+  <img src="AIAgentGuard-Screenshot-1.png" alt="Security Scan Report" />
+  <p><strong>AI AgentGuard is a security tool for AI agents, CLI tools, and MCP servers.It scans for permission risks, evaluates security threats, and providessandboxed execution environments.</strong></p>
+  <p><a href="README.md">English</a> | <a href="README_zh.md">简体中文</a></p>
 </div>
 
 ## Features
@@ -450,4 +448,4 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
-**Protect your AI Agents, start with security scanning!** 🛡️
+**Protect your AI Agents, start with security scanning!** 
