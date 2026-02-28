@@ -7,14 +7,6 @@
 
 [English](README.md) | [简体中文](README_zh.md)
 
-[![Version](https://img.shields.io/badge/version-v1.2.0--beta-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
-[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
-
-
-[English](README.md) | [简体中文](README_zh.md)
-
 ## Features
 
 ### Core Security Scanning
@@ -34,21 +26,13 @@
 - **Web UI Dashboard** - Visual security monitoring with real-time updates
 
 ### v1.2.0 Features
+
+
 - **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies
 - **Prometheus Monitoring** - Export metrics for monitoring and alerting
 - **Go Vulnerability Scanning** - Check Go dependencies for known CVEs
 - **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
 - **True Sandbox Isolation** - containerd-based container isolation (Linux only)
-- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
-- **Prometheus Monitoring** - Export metrics for monitoring and alerting
-- **Go Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
-- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
-- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
-- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
-- **Go Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
-- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
-- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
-
 ### v1.1.0 Features
 - **Go Dependency Scanning** - Check Go dependencies for known CVEs
 - **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
@@ -69,18 +53,6 @@
 
 ## Installation
 
-- **Permission Scanning** - Detect filesystem, shell, network, and secret access permissions
-- **File Content Analysis** - Scan files for exposed API keys, tokens, and secrets (15+ patterns)
-- **Process Security Monitoring** - Detect reverse shells, suspicious processes, and high CPU usage
-- **SUID/SGID Scanning** - Identify privileged executables and potential privilege escalation vectors
-- **Audit Logging** - Comprehensive security event logging with JSON format and SIEM integration
-- **Risk Assessment** - Intelligently analyze security threats and calculate risk levels
-- **Smart Command Parsing** - Advanced flag parsing to prevent bypass attempts
-- **Sandbox Execution** - Safely run commands in isolated environments
-- **Policy Management** - Control access permissions via YAML configuration
-- **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
-- **Plugin Scanning** - Detect insecure plugins and extensions
-## Installation
 
 ### Method 1: Homebrew (Recommended for macOS/Linux)
 
@@ -178,7 +150,6 @@ agent-guard scan --metrics-addr :9090
 For detailed monitoring setup, see [Monitoring Guide](doc/MONITORING.md).
 
 ### 5. Initialize Configuration
-### 4. Initialize Configuration
 
 ```bash
 # Generate default configuration file
@@ -238,7 +209,7 @@ network:
  ██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
  ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 
-                             🛡️  Security Scan Report v1.0
+                             🛡️  Security Scan Report v1.3.0
 
 Overall Risk: 🔶 HIGH
 
@@ -315,9 +286,6 @@ Generate default configuration file.
 ```bash
 agent-guard init [flags]
 
-Options:
-  --force    Overwrite existing configuration file
-  --path     Specify configuration file path
 Options:
   --force    Overwrite existing configuration file
   --path     Specify configuration file path
@@ -482,21 +450,3 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 ---
 
 **Protect your AI Agents, start with security scanning!** 🛡️
-
-### 6. Audit Log Examples
-
-View security events:
-```bash
-# Show recent policy violations
-cat ~/.agent-guard/audit.log | jq '. | select(.event_type == "policy_violation")'
-
-# Follow audit logs in real-time
-tail -f ~/.agent-guard/audit.log | jq .
-
-# Find blocked commands
-grep "command_blocked" ~/.agent-guard/audit.log | jq .
-
-# Check for high-risk events
-grep "CRITICAL" ~/.agent-guard/audit.log | jq .
-```
-
