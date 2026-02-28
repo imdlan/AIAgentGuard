@@ -5,20 +5,30 @@
 
 set -e
 
-VERSION="v1.0.0"
-REPO="imdlan/AIAgentGuard"
-BINARY_NAME="agent-guard"
-INSTALL_DIR="/usr/local/bin"
-
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+REPO="imdlan/AIAgentGuard"
+BINARY_NAME="agent-guard"
+INSTALL_DIR="/usr/local/bin"
+
 echo "🛡️  AI AgentGuard Installer"
 echo "=============================="
 echo
+
+# Fetch latest release version from GitHub API
+echo -e "${YELLOW}Fetching latest version...${NC}"
+VERSION=$(curl -s https://api.github.com/repos/$REPO/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+if [ -z "$VERSION" ]; then
+    echo -e "${RED}Error: Could not determine latest version${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}Latest version:${NC} $VERSION"
 
 # Detect OS
 OS=$(uname -s)
@@ -64,38 +74,49 @@ if [ -f "$INSTALL_DIR/$BINARY_NAME" ]; then
     fi
 fi
 
-# Download URL
-DOWNLOAD_URL="https://github.com/$REPO/releases/download/$VERSION/${BINARY_NAME}-${PLATFORM}-${ARCH}"
+# Download URL (tar.gz archive)
+# Version format: v1.3.0 -> archive name: agent-guard_1.3.0_darwin_arm64.tar.gz
+VERSION_NUM="${VERSION#v}"
+DOWNLOAD_URL="https://github.com/$REPO/releases/download/$VERSION/${BINARY_NAME}_${VERSION_NUM}_${PLATFORM}_${ARCH}.tar.gz"
 
 echo -e "${YELLOW}Downloading from:${NC} $DOWNLOAD_URL"
 echo
 
-# Download binary
+# Create temp directory
+temp_dir=$(mktemp -d)
+trap "rm -rf $temp_dir" EXIT
+
+# Download archive
 if command -v curl &> /dev/null; then
-    curl -L -o /tmp/$BINARY_NAME "$DOWNLOAD_URL"
+    curl -L -o "$temp_dir/archive.tar.gz" "$DOWNLOAD_URL"
 elif command -v wget &> /dev/null; then
-    wget -O /tmp/$BINARY_NAME "$DOWNLOAD_URL"
+    wget -O "$temp_dir/archive.tar.gz" "$DOWNLOAD_URL"
 else
     echo -e "${RED}Error: Neither curl nor wget found${NC}"
     exit 1
 fi
 
+# Extract binary
+tar -xzf "$temp_dir/archive.tar.gz" -C "$temp_dir"
+
 # Make executable
-chmod +x /tmp/$BINARY_NAME
+chmod +x "$temp_dir/$BINARY_NAME"
 
 # Install
 echo -e "${YELLOW}Installing to $INSTALL_DIR...${NC}"
 if [ -w "$INSTALL_DIR" ]; then
-    mv /tmp/$BINARY_NAME "$INSTALL_DIR/"
+    mv "$temp_dir/$BINARY_NAME" "$INSTALL_DIR/"
 else
     echo -e "${YELLOW}Requires sudo privileges${NC}"
-    sudo mv /tmp/$BINARY_NAME "$INSTALL_DIR/"
+    sudo mv "$temp_dir/$BINARY_NAME" "$INSTALL_DIR/"
 fi
 
 # Verify installation
 if command -v $BINARY_NAME &> /dev/null; then
     echo
     echo -e "${GREEN}✅ Installation successful!${NC}"
+    echo
+    echo "Installed version: $VERSION"
     echo
     echo "Run '$BINARY_NAME --help' to get started"
     echo
