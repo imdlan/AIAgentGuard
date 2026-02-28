@@ -26,16 +26,12 @@
 - **Web UI Dashboard** - Visual security monitoring with real-time updates
 
 ### v1.2.0 Features
-
-
 - **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies
 - **Prometheus Monitoring** - Export metrics for monitoring and alerting
 - **Go Vulnerability Scanning** - Check Go dependencies for known CVEs
 - **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
 - **True Sandbox Isolation** - containerd-based container isolation (Linux only)
 ### v1.1.0 Features
-- **Go Dependency Scanning** - Check Go dependencies for known CVEs
-- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
 - **Dependency Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
 - **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
 - **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)

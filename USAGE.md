@@ -1,4 +1,4 @@
-# AIAgentGuard v1.2.0 - Complete Usage Guide
+# AIAgentGuard v1.3.0 - Complete Usage Guide
 
 > 中文版本: [USAGE_zh.md](USAGE_zh.md)
 
@@ -28,7 +28,7 @@
 - **Web Dashboard**: Visual security monitoring interface
 - **Audit Logging**: Comprehensive security event tracking
 
-### Key Features (v1.2.0)
+### Key Features (v1.3.0)
 
 ✅ **Multi-language Dependency Scanning**
 - Go modules vulnerability detection using `golang.org/x/vuln`
@@ -254,7 +254,7 @@ agent-guard scan
 
 **Output**:
 ```
-🛡️  Security Scan Report v1.2.0
+🛡️  Security Scan Report v1.3.0
 
 Overall Risk: 🔶 HIGH
 
@@ -936,7 +936,10 @@ agent-guard scan --json > diagnostic-report.json
 
 ## Appendix
 
-### Version History
+- **v1.3.0**: Detailed security reporting, fix wizard, trend analysis, process/network scanning details
+- **v1.2.0**: Multi-language dependency scanning, Web UI monitoring, Prometheus integration
+- **v1.1.0**: Go dependency scanning, container runtime detection
+- **v1.0.0**: Initial release with core scanning features
 
 - **v1.2.0**: Multi-language dependency scanning, Web UI monitoring, Prometheus integration
 - **v1.1.0**: Go dependency scanning, container runtime detection
@@ -953,6 +956,8 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 ---
 
 **Last Updated**: 2026-02-28
+**Version**: v1.3.0
+**Maintainer**: AIAgentGuard Team
 **Version**: v1.2.0
 **Maintainer**: AIAgentGuard Team
 
