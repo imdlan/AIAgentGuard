@@ -1,16 +1,16 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.3.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
-[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-v1.3.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest) [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Screenshots
-
+<div align="center">
 ![Web UI Dashboard](AIAgentGuard-Screenshot-2.png)
-
 ![Security Scan Report](AIAgentGuard-Screenshot-1.png)
 
+🛡️AI AgentGuard is a security tool for AI agents, CLI tools, and MCP servers.It scans for permission risks, evaluates security threats, and providessandboxed execution environments.
+
 [English](README.md) | [简体中文](README_zh.md)
+</div>
 
 ## Features
 
