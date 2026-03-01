@@ -1,6 +1,6 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.4.0-blue.svg)]
+[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)]
 
 ## Screenshots
 <div align="center">
