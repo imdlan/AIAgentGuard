@@ -1,4 +1,4 @@
-# AIAgentGuard v1.4.0 - Complete Usage Guide
+# AIAgentGuard v1.4.1 - Complete Usage Guide
 
 > 中文版本: [USAGE_zh.md](USAGE_zh.md)
 
@@ -28,7 +28,7 @@
 - **Web Dashboard**: Visual security monitoring interface
 - **Audit Logging**: Comprehensive security event tracking
 
-### Key Features (v1.4.0)
+### Key Features (v1.4.1)
 
 ✅ **Multi-language Dependency Scanning**
 - Go modules vulnerability detection using `golang.org/x/vuln`
@@ -254,7 +254,7 @@ agent-guard scan
 
 **Output**:
 ```
-🛡️  Security Scan Report v1.4.0
+🛡️  Security Scan Report v1.4.1
 
 Overall Risk: 🔶 HIGH
 
@@ -336,7 +336,7 @@ agent-guard init --force
 3. `/etc/agent-guard/config.yaml` (system directory)
 3. `/etc/agent-guard/config.yaml` (system directory)
 
-### Fix Command (New in v1.4.0)
+### Fix Command (New in v1.4.1)
 
 **Security Fix Wizard** - Automatically fix security issues or get remediation guidance.
 
@@ -398,7 +398,7 @@ agent-guard fix --category secrets --auto
 - Fix commands are logged to audit trail
 - Can undo fixes from audit log
 
-### Trend Command (New in v1.4.0)
+### Trend Command (New in v1.4.1)
 
 **Risk Trend Analysis** - Compare scan results over time to track security posture.
 
@@ -936,7 +936,7 @@ agent-guard scan --json > diagnostic-report.json
 
 ## Appendix
 
-- **v1.4.0**: Detailed security reporting, fix wizard, trend analysis, process/network scanning details
+- **v1.4.1**: Detailed security reporting, fix wizard, trend analysis, process/network scanning details
 - **v1.2.0**: Multi-language dependency scanning, Web UI monitoring, Prometheus integration
 - **v1.1.0**: Go dependency scanning, container runtime detection
 - **v1.0.0**: Initial release with core scanning features
@@ -956,7 +956,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 ---
 
 **Last Updated**: 2026-02-28
-**Version**: v1.4.0
+**Version**: v1.4.1
 **Maintainer**: AIAgentGuard Team
 **Version**: v1.2.0
 **Maintainer**: AIAgentGuard Team
