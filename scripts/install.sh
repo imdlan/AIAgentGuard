@@ -24,7 +24,15 @@ echo -e "${YELLOW}Fetching latest version...${NC}"
 VERSION=$(curl -s https://api.github.com/repos/$REPO/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 
 if [ -z "$VERSION" ]; then
+    # Fallback: try to get version from latest release page
+    echo -e "${YELLOW}GitHub API rate limited, trying alternative method...${NC}"
+    VERSION=$(curl -sI https://github.com/$REPO/releases/latest 2>/dev/null | grep -i "location:" | sed -E 's/.*\/tag\/([^\r\n]+).*/\1/')
+fi
+
+if [ -z "$VERSION" ]; then
     echo -e "${RED}Error: Could not determine latest version${NC}"
+    echo -e "${YELLOW}Please specify version manually:${NC}"
+    echo "  curl -sSL https://raw.githubusercontent.com/imdlan/AIAgentGuard/main/scripts/install.sh | VERSION=v1.4.0 bash"
     exit 1
 fi
 
