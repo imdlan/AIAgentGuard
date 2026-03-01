@@ -6,11 +6,10 @@
 [![Downloads](https://img.shields.io/github/downloads/imdlan/AIAgentGuard/total.svg)](https://github.com/imdlan/AIAgentGuard/releases)
 [![Homebrew](https://img.shields.io/badge/Homebrew-imdlan%2FAIAgentGuard-orange.svg)](https://github.com/imdlan/homebrew-AIAgentGuard)
 
-[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)]
-
-
 ## 截图展示
 <div align="center">
+
+
   <img src="AIAgentGuard-Screenshot-2.png" alt="AgentGuard CLI" />
   <img src="AIAgentGuard-Screenshot-1.png" alt="Security Scan Report" />
   <p><strong>AI AgentGuard 是一种面向 AI 代理、CLI 工具和 MCP 服务器的安全检测工具。它扫描权限风险，评估安全威胁，并提供沙箱执行环境。</strong></p>
@@ -233,7 +232,7 @@ network:
  ██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
  ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 
-                             🛡️  Security Scan Report v1.3.0
+                             🛡️  Security Scan Report v1.4.1
 
 Overall Risk: 🔶 HIGH
 

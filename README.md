@@ -6,10 +6,9 @@
 [![Downloads](https://img.shields.io/github/downloads/imdlan/AIAgentGuard/total.svg)](https://github.com/imdlan/AIAgentGuard/releases)
 [![Homebrew](https://img.shields.io/badge/Homebrew-imdlan%2FAIAgentGuard-orange.svg)](https://github.com/imdlan/homebrew-AIAgentGuard)
 
-[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)]
-
 ## Screenshots
 <div align="center">
+
   <img src="AIAgentGuard-Screenshot-2.png" alt="AgentGuard CLI" />
   <img src="AIAgentGuard-Screenshot-1.png" alt="Security Scan Report" />
   <p><strong>AI AgentGuard is a security tool for AI agents, CLI tools, and MCP servers.It scans for permission risks, evaluates security threats, and providessandboxed execution environments.</strong></p>
