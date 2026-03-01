@@ -53,6 +53,21 @@
 - **提示注入防护** - 检测和阻止恶意提示注入攻击
 - **插件扫描** - 检测不安全的插件和扩展
 
+## 更新方式
+
+更新到最新版本：
+
+**Homebrew**:
+```bash
+brew upgrade agent-guard
+```
+
+**安装脚本**:
+```bash
+curl -sSL https://raw.githubusercontent.com/imdlan/AIAgentGuard/main/scripts/install.sh | bash
+```
+
+**手动下载**: 从 [Releases](https://github.com/imdlan/AIAgentGuard/releases/latest) 下载。
 ## 安装方式
 
 ### 方式 1: Homebrew（推荐 macOS/Linux）

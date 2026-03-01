@@ -51,6 +51,21 @@
 - **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
 - **Plugin Scanning** - Detect insecure plugins and extensions
 
+## Update
+
+To update to the latest version:
+
+**Homebrew**:
+```bash
+brew upgrade agent-guard
+```
+
+**Install Script**:
+```bash
+curl -sSL https://raw.githubusercontent.com/imdlan/AIAgentGuard/main/scripts/install.sh | bash
+```
+
+**Manual**: Download from [Releases](https://github.com/imdlan/AIAgentGuard/releases/latest).
 ## Installation
 
 
