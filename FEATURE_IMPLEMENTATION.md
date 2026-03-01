@@ -1,4 +1,4 @@
-# AIAgentGuard v1.2.0 - 新功能实现总结
+# AIAgentGuard v1.4.1 - 功能实现总结
 
 ## ✅ 已完成的功能
 

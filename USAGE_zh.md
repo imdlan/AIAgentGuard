@@ -30,6 +30,12 @@
 - **Web 可视化界面** - React + Go RESTful API
 
 ### 📊 安全覆盖率
+- **v1.4.1**: **95%+** (+详细报告 + 修复向导 + 趋势分析 + i18n多语言支持)
+- **v1.2.0**: 92%+ (+多语言扫描 + 监控)
+- **v1.1.0**: 78% (+企业特性)
+- **v1.4.1**: **95%+** (+详细报告 + 修复向导 + 趋势分析 + i18n多语言支持)
+- **v1.2.0**: 92%+ (+多语言扫描 + 监控)
+- **v1.1.0**: 78% (+企业特性)
 - **v1.2.0**: 92%+ (+多语言扫描 + 监控)
 - **v1.4.1**: **95%+** (+详细报告 + 修复向导 + 趋势分析)
 - **v1.1.0**: 78% (+企业特性)
@@ -610,7 +616,7 @@ spec:
     spec:
       containers:
       - name: agent-guard
-        image: imdlan/agent-guard:v1.2.0
+        image: imdlan/agent-guard:v1.4.1
         command: ["scan", "--metrics-addr", ":9090"]
         ports:
         - containerPort: 8080
@@ -917,7 +923,7 @@ wait
 
 ## 总结
 
-AIAgentGuard v1.2.0 提供了：
+AIAgentGuard v1.4.1 提供了：
 
 ### ✅ 已完成功能
 1. **多语言依赖扫描** - Go、npm、pip、cargo

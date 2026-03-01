@@ -941,9 +941,6 @@ agent-guard scan --json > diagnostic-report.json
 - **v1.1.0**: Go dependency scanning, container runtime detection
 - **v1.0.0**: Initial release with core scanning features
 
-- **v1.2.0**: Multi-language dependency scanning, Web UI monitoring, Prometheus integration
-- **v1.1.0**: Go dependency scanning, container runtime detection
-- **v1.0.0**: Initial release with core scanning features
 
 ### License
 
@@ -955,10 +952,8 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
-**Last Updated**: 2026-02-28
+**Last Updated**: 2026-03-01
 **Version**: v1.4.1
-**Maintainer**: AIAgentGuard Team
-**Version**: v1.2.0
 **Maintainer**: AIAgentGuard Team
 
 **中文版本**: [USAGE_zh.md](USAGE_zh.md)
