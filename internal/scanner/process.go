@@ -10,6 +10,8 @@ import (
 	"strings"
 
 	"github.com/imdlan/AIAgentGuard/pkg/model"
+
+	"github.com/imdlan/AIAgentGuard/internal/i18n"
 )
 
 // ProcessInfo represents information about a running process
@@ -129,7 +131,7 @@ func ScanProcessesDetailed() (model.RiskLevel, []model.RiskDetail) {
 	detail := model.RiskDetail{
 		Type:        risk,
 		Category:    "process",
-		Description: fmt.Sprintf("发现 %d 个可疑进程", len(allSuspicious)),
+		Description: i18n.T("scan.process.found", len(allSuspicious)),
 		Details: model.RiskSpecificInfo{
 			SuspiciousProcs: suspiciousProcs,
 		},
@@ -137,19 +139,19 @@ func ScanProcessesDetailed() (model.RiskLevel, []model.RiskDetail) {
 
 	if risk == model.High || risk == model.Critical {
 		detail.Remediation = model.RemediationInfo{
-			Summary: "立即调查并终止可疑进程",
+			Summary: i18n.T("scan.process.investigate"),
 			Steps: []model.RemediationStep{
 				{
 					Step:        1,
-					Action:      "查看进程详情",
+					Action:      i18n.T("scan.process.viewDetails"),
 					Command:     "ps -p <PID> -f",
-					Explanation: "查看进程的完整命令行和启动信息",
+					Explanation: i18n.T("scan.process.viewDetailsExplanation"),
 				},
 				{
 					Step:        2,
-					Action:      "终止可疑进程",
+					Action:      i18n.T("scan.process.terminate"),
 					Command:     "kill <PID>",
-					Explanation: "如果确认是恶意进程，终止它",
+					Explanation: i18n.T("scan.process.terminateExplanation"),
 				},
 			},
 			Commands:    []string{"ps aux | grep <process_name>"},

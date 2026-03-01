@@ -11,6 +11,8 @@ import (
 	"syscall"
 
 	"github.com/imdlan/AIAgentGuard/pkg/model"
+
+	"github.com/imdlan/AIAgentGuard/internal/i18n"
 )
 
 // Sensitive paths that should not be accessible by AI agents
@@ -20,17 +22,17 @@ var sensitivePaths = []string{
 	"/usr/sbin",
 }
 
-// pathRiskReasons maps paths to their risk descriptions
-var pathRiskReasons = map[string]string{
-	"/etc":            "系统配置目录，可能被篡改",
-	"/usr/bin":        "系统二进制文件，可能被替换",
-	"/usr/sbin":       "系统管理命令，可能被滥用",
-	".ssh":            "SSH 密钥，可能被窃取",
-	".gnupg":          "GPG 密钥，可能被窃取",
-	".config":         "应用配置，可能包含敏感信息",
-	".aws":            "AWS 凭证，可能被窃取",
-	"AppData/Local":   "本地应用数据，可能包含敏感信息",
-	"AppData/Roaming": "漫游应用数据，可能包含凭证",
+// pathRiskKeys maps paths to their i18n translation keys
+var pathRiskKeys = map[string]string{
+	"/etc":            "path.etc",
+	"/usr/bin":        "path.usrBin",
+	"/usr/sbin":       "path.usrSbin",
+	".ssh":            "path.ssh",
+	".gnupg":          "path.gnupg",
+	".config":         "path.config",
+	".aws":            "path.aws",
+	"AppData/Local":   "path.appdataLocal",
+	"AppData/Roaming": "path.appdataRoaming",
 }
 
 // ScanFilesystem checks if sensitive filesystem paths are accessible
@@ -83,9 +85,9 @@ func ScanFilesystemDetailed() (model.RiskLevel, []model.RiskDetail) {
 	}
 
 	// Build description
-	description := fmt.Sprintf("发现 %d 个敏感路径可访问", len(affectedPaths))
+	description := i18n.T("scan.filesystem.found", len(affectedPaths))
 	if len(highRiskPaths) > 0 {
-		description = fmt.Sprintf("发现 %d 个敏感路径可写入（高风险）", len(highRiskPaths))
+		description = i18n.T("scan.filesystem.foundWritable", len(highRiskPaths))
 	}
 
 	// Build risk detail
@@ -137,12 +139,12 @@ func checkPathPermissions(path string, info os.FileInfo) model.PathDetail {
 
 // getPathRiskReason returns the risk reason for a path
 func getPathRiskReason(path string) string {
-	for key, reason := range pathRiskReasons {
+	for key, reasonKey := range pathRiskKeys {
 		if strings.Contains(path, key) {
-			return reason
+			return i18n.T(reasonKey)
 		}
 	}
-	return "敏感路径，可能包含重要信息"
+	return i18n.T("scan.filesystem.sensitivePath")
 }
 
 // generateFilesystemRemediation creates remediation suggestions
@@ -154,9 +156,9 @@ func generateFilesystemRemediation(highRiskPaths, mediumRiskPaths []string, allP
 	for i, path := range highRiskPaths {
 		steps = append(steps, model.RemediationStep{
 			Step:        i + 1,
-			Action:      fmt.Sprintf("限制 %s 的写权限", path),
+			Action:      i18n.T("scan.filesystem.limitWritePermission", path),
 			Command:     fmt.Sprintf("sudo chmod 755 %s", path),
-			Explanation: "移除组和其他用户的写权限",
+			Explanation: i18n.T("scan.filesystem.removeWritePermission"),
 		})
 		commands = append(commands, fmt.Sprintf("sudo chmod 755 %s", path))
 	}
@@ -168,9 +170,9 @@ func generateFilesystemRemediation(highRiskPaths, mediumRiskPaths []string, allP
 			strings.Contains(pathDetail.Path, ".aws") {
 			steps = append(steps, model.RemediationStep{
 				Step:        len(steps) + 1,
-				Action:      fmt.Sprintf("限制 %s 权限为仅所有者可访问", pathDetail.Path),
+			Action:      i18n.T("scan.filesystem.limitOwnerAccess", pathDetail.Path),
 				Command:     fmt.Sprintf("chmod 700 %s", pathDetail.Path),
-				Explanation: "设置为 700 权限，仅所有者可以读写执行",
+			Explanation: i18n.T("scan.filesystem.setPermission700"),
 			})
 			commands = append(commands, fmt.Sprintf("chmod 700 %s", pathDetail.Path))
 		}
@@ -182,7 +184,7 @@ func generateFilesystemRemediation(highRiskPaths, mediumRiskPaths []string, allP
 	}
 
 	return model.RemediationInfo{
-		Summary:   "限制敏感路径的写权限，防止未授权修改",
+		Summary:   i18n.T("scan.filesystem.limitWritePrevention"),
 		Steps:     steps,
 		Commands:  commands,
 		Priority:  priority,

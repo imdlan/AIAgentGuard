@@ -1,13 +1,14 @@
 package scanner
 
 import (
-	"fmt"
 	"os/exec"
 	"runtime"
 	"strings"
 
+	"github.com/imdlan/AIAgentGuard/internal/i18n"
 	"github.com/imdlan/AIAgentGuard/pkg/model"
 )
+
 
 // SudoInfo contains detailed information about sudo access
 type SudoInfo struct {
@@ -42,9 +43,9 @@ func ScanShellDetailed() (model.RiskLevel, []model.RiskDetail) {
 	}
 
 	// Build description
-	description := fmt.Sprintf("检测到 %d 个可用的 Shell", len(availableShells))
+	description := i18n.T("scan.shell.foundShells", len(availableShells))
 	if sudoInfo.HasAccess {
-		description = fmt.Sprintf("检测到 %d 个可用的 Shell，且有无密码 sudo 权限", len(availableShells))
+		description = i18n.T("scan.shell.foundShellsWithSudo", len(availableShells))
 	}
 
 	// Build risk detail
@@ -63,25 +64,25 @@ func ScanShellDetailed() (model.RiskLevel, []model.RiskDetail) {
 	// Add remediation suggestions
 	if sudoInfo.HasAccess {
 		detail.Remediation = model.RemediationInfo{
-			Summary: "移除无密码 sudo 权限，限制 Shell 访问",
+			Summary: i18n.T("scan.shell.removeSudo"),
 			Steps: []model.RemediationStep{
 				{
 					Step:        1,
-					Action:      "检查 sudoers 配置",
+					Action:      i18n.T("scan.shell.checkSudoers"),
 					Command:     "sudo visudo -c",
-					Explanation: "验证 sudoers 文件语法",
+					Explanation: i18n.T("scan.shell.verifySudoersSyntax"),
 				},
 				{
 					Step:        2,
-					Action:      "查看当前 sudo 配置",
+					Action:      i18n.T("scan.shell.viewSudoConfig"),
 					Command:     "sudo -l",
-					Explanation: "列出当前用户的 sudo 权限",
+					Explanation: i18n.T("scan.shell.listSudoPrivileges"),
 				},
 				{
 					Step:        3,
-					Action:      "编辑 sudoers 文件",
+					Action:      i18n.T("scan.shell.editSudoers"),
 					Command:     "sudo visudo",
-					Explanation: "删除或注释包含 NOPASSWD 的配置行",
+					Explanation: i18n.T("scan.shell.removeNopasswd"),
 				},
 			},
 			Commands: []string{
@@ -94,19 +95,19 @@ func ScanShellDetailed() (model.RiskLevel, []model.RiskDetail) {
 		}
 	} else {
 		detail.Remediation = model.RemediationInfo{
-			Summary: "限制 Shell 访问权限",
+			Summary: i18n.T("scan.shell.limitShellAccess"),
 			Steps: []model.RemediationStep{
 				{
 					Step:        1,
-					Action:      "检查不必要的 Shell",
+					Action:      i18n.T("scan.shell.checkUnnecessaryShells"),
 					Command:     "cat /etc/shells",
-					Explanation: "查看系统中可用的 Shell",
+					Explanation: i18n.T("scan.shell.viewAvailableShells"),
 				},
 				{
 					Step:        2,
-					Action:      "限制用户 Shell",
+					Action:      i18n.T("scan.shell.restrictUserShell"),
 					Command:     "sudo usermod -s /bin/false username",
-					Explanation: "为特定用户设置限制性 Shell",
+					Explanation: i18n.T("scan.shell.setRestrictedShell"),
 				},
 			},
 			Commands: []string{
@@ -161,14 +162,14 @@ func checkSudoAccessDetailed() SudoInfo {
 					if line != "" && !strings.HasPrefix(line, "Matching") && !strings.HasPrefix(line, "User") {
 						info.Rules = append(info.Rules, line)
 						if strings.Contains(line, "NOPASSWD") {
-							info.Source = "发现无密码 sudo 配置"
+							info.Source = i18n.T("scan.sudo.passwordlessFound")
 						}
 					}
 				}
 			}
 
 			if info.Source == "" {
-				info.Source = "当前用户可以执行 sudo 命令（可能需要密码）"
+					info.Source = i18n.T("scan.sudo.canRunSudo")
 			}
 		}
 
@@ -177,7 +178,7 @@ func checkSudoAccessDetailed() SudoInfo {
 		cmd := exec.Command("net", "session")
 		if err := cmd.Run(); err == nil {
 			info.HasAccess = true
-			info.Source = "当前进程以管理员权限运行"
+				info.Source = i18n.T("scan.sudo.runningAsAdmin")
 		}
 	}
 

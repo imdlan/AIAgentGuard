@@ -27,6 +27,7 @@
 - **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
 - **Prometheus Monitoring** - Export metrics for monitoring and alerting
 - **Web UI Dashboard** - Visual security monitoring with real-time updates
+- **Multi-Language Support (i18n)** - Auto-detect system language, support English and Chinese output
 
 ### v1.2.0 Features
 - **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies
