@@ -1,6 +1,6 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.3.0-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest) [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-v1.4.0-blue.svg)]
 
 
 ## 截图展示
