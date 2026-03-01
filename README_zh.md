@@ -1,5 +1,11 @@
 # AI AgentGuard
 
+[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
+[![Downloads](https://img.shields.io/github/downloads/imdlan/AIAgentGuard/total.svg)](https://github.com/imdlan/AIAgentGuard/releases)
+[![Homebrew](https://img.shields.io/badge/Homebrew-imdlan%2FAIAgentGuard-orange.svg)](https://github.com/imdlan/homebrew-AIAgentGuard)
+
 [![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)]
 
 
@@ -13,46 +19,48 @@
 
 ## 功能特性
 
-### 核心安全扫描
+### v1.4.1 功能（最新）⭐
+- **版本命令** - 使用 `agent-guard version` 显示已安装的版本
+- **安装脚本改进** - 为 GitHub API 速率限制添加回退方法，提供更好的错误消息
+
+### v1.4.0 功能
+- **多语言支持 (i18n)** - 自动检测系统语言，支持中英文输出
+- **嵌入翻译文件** - 40+ 可翻译字符串，无外部依赖
+- **macOS 语言检测** - 从 AppleLocale 和 AppleLanguages 偏好自动检测
+
+### v1.3.0 功能
+- **详细安全报告** - 显示造成安全风险的具体文件、进程和命令
+  - 进程扫描详情：显示 PID、命令行和风险原因
+  - 网络连接分析：显示开放端口和活跃连接
+  - 增强的风险评估，提供可操作的修复步骤
+- **自动修复向导** - 自动修复安全问题或提供手动修复命令
+  - 新增 `agent-guard fix` CLI 命令，支持 `--auto` 和 `--dry-run` 选项
+  - 特定类别修复（文件系统、Shell、网络、机密）
+- **风险趋势分析** - 对比历史扫描结果，追踪安全态势变化
+  - 新增 `agent-guard trend` CLI 命令，支持历史数据分析
+- **Web UI 仪表板** - 完整的可视化安全监控界面
+  - React + Go RESTful API 实时仪表板
+  - 进程、网络、修复向导和趋势历史面板
+
+### v1.2.0 功能
+- **多语言依赖漏洞扫描** - 支持 Go、npm、pip、cargo 依赖漏洞扫描
+- **Prometheus 监控** - 导出指标用于监控和告警，提供 `/metrics` 端点
+- **Grafana 仪表板** - 预构建监控仪表板，支持实时可视化
+- **增强测试覆盖** - 针对多语言扫描器（npm、pip、cargo）的全面单元测试
+
+### v1.1.0 功能
+- **Go 依赖漏洞扫描** - 使用 golang.org/x/vuln 检查 Go 依赖中的已知 CVE
+- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm 环境
+- **真·沙盒隔离** - 基于 containerd 的容器隔离，使用 Linux 命名空间（仅 Linux）
+- **性能基准测试** - 针对所有主要组件的 12 项基准测试
+
+### v1.0.0 功能（核心）
 - **权限扫描** - 检测文件系统、Shell、网络和机密访问权限
 - **文件内容分析** - 扫描文件中的暴露 API 密钥、令牌和机密信息（15+ 种模式）
 - **进程安全监控** - 检测反向 shell、可疑进程和高 CPU 使用率
 - **SUID/SGID 扫描** - 识别特权可执行文件和潜在的权限提升向量
-
-### 高级功能（v1.3.0 新增）⭐
-- **详细安全报告** - 显示造成安全风险的具体文件、进程和命令
-- **进程扫描详情** - 识别可疑进程，显示 PID、命令行和风险原因
-- **网络连接分析** - 显示开放端口和活跃连接，附带安全评估
-- **自动修复向导** - 自动修复安全问题或提供手动修复命令
-- **风险趋势分析** - 对比历史扫描结果，追踪安全态势变化
-- **多语言依赖漏洞扫描** - 支持 Go、npm、pip、cargo 依赖漏洞扫描
-- **Prometheus 监控** - 导出指标用于监控和告警
-- **Web UI 仪表板** - 可视化安全监控，支持实时更新
-- **多语言支持 (i18n)** - 自动检测系统语言，支持中英文输出
-
-### v1.2.0 功能
-- **多语言依赖漏洞扫描** - 支持 Go、npm、pip、cargo 依赖漏洞扫描
-- **Prometheus 监控** - 导出指标用于监控和告警
-- **Go 依赖漏洞扫描** - 使用 golang.org/x/vuln 检查已知 CVE
-- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm
-- **真·沙盒隔离** - 基于 containerd 的容器隔离（仅 Linux）
-
-### v1.1.0 功能
-- **依赖漏洞扫描** - 使用 golang.org/x/vuln 检查 Go 依赖中的已知 CVE 漏洞
-- **容器运行时检测** - 检测 Docker、Kubernetes、Podman、LXC、Wasm 环境
-- **真·沙盒隔离** - 基于 containerd 的容器隔离，使用 Linux 命名空间（仅 Linux）
-
-### 安全与合规
 - **审计日志** - 全面的安全事件日志，支持 JSON 格式和 SIEM 集成
-- **风险评估** - 智能分析安全威胁并计算风险等级（85%+ 覆盖率）
 - **智能命令解析** - 高级标志解析，防止绕过尝试
-- **沙箱执行** - 在隔离环境中安全运行命令
-
-### 配置与防护
-- **策略管理** - 通过 YAML 配置文件控制访问权限
-- **提示注入防护** - 检测和阻止恶意提示注入攻击
-- **插件扫描** - 检测不安全的插件和扩展
-
 ## 更新方式
 
 更新到最新版本：

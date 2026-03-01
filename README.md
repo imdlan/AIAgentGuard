@@ -1,5 +1,11 @@
 # AI AgentGuard
 
+[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
+[![Downloads](https://img.shields.io/github/downloads/imdlan/AIAgentGuard/total.svg)](https://github.com/imdlan/AIAgentGuard/releases)
+[![Homebrew](https://img.shields.io/badge/Homebrew-imdlan%2FAIAgentGuard-orange.svg)](https://github.com/imdlan/homebrew-AIAgentGuard)
+
 [![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)]
 
 ## Screenshots
@@ -12,41 +18,49 @@
 
 ## Features
 
-### Core Security Scanning
+### v1.4.1 Features (Latest) ⭐
+- **Version Command** - Display installed version with `agent-guard version`
+- **Installation Script Improvements** - Fallback method for GitHub API rate limiting with better error messages
+
+### v1.4.0 Features
+- **Multi-Language Support (i18n)** - Auto-detect system language, support English and Chinese output
+- **Embedded Translation Files** - 40+ translatable strings with no external dependencies
+- **macOS Language Detection** - Automatic detection from AppleLocale and AppleLanguages preferences
+
+### v1.3.0 Features
+- **Detailed Security Reporting** - Show specific files, processes, and commands causing security risks
+  - Process Scanning Details with PID, command line, and risk reasons
+  - Network Connection Analysis displaying open ports and active connections
+  - Enhanced risk assessment with actionable remediation steps
+- **Automated Fix Wizard** - Auto-fix security issues or provide manual remediation commands
+  - New `agent-guard fix` CLI command with `--auto` and `--dry-run` options
+  - Category-specific fixes (filesystem, shell, network, secrets)
+- **Risk Trend Analysis** - Compare scan results over time to track security posture changes
+  - New `agent-guard trend` CLI command with historical data analysis
+- **Web UI Dashboard** - Complete visual security monitoring interface
+  - Real-time dashboard with React + Go RESTful API
+  - Process, Network, Fix Wizard, and Trend History panels
+
+### v1.2.0 Features
+- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
+- **Prometheus Monitoring** - Export metrics for monitoring and alerting with `/metrics` endpoint
+- **Grafana Dashboard** - Pre-built monitoring dashboard with real-time visualizations
+- **Enhanced Test Coverage** - Comprehensive unit tests for multilang scanners (npm, pip, cargo)
+
+### v1.1.0 Features
+- **Go Dependency Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
+- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
+- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
+- **Performance Benchmarking** - 12 benchmark tests for all major components
+
+### v1.0.0 Features (Core)
 - **Permission Scanning** - Detect filesystem, shell, network, and secret access permissions
 - **File Content Analysis** - Scan files for exposed API keys, tokens, and secrets (15+ patterns)
 - **Process Security Monitoring** - Detect reverse shells, suspicious processes, and high CPU usage
 - **SUID/SGID Scanning** - Identify privileged executables and potential privilege escalation vectors
-
-### Advanced Features (New in v1.3.0) ⭐
-- **Detailed Security Reporting** - Show specific files, processes, and commands causing security risks
-- **Process Scanning Details** - Identify suspicious processes with PID, command line, and risk reasons
-- **Network Connection Analysis** - Display open ports and active connections with security assessment
-- **Automated Fix Wizard** - Auto-fix security issues or provide manual remediation commands
-- **Risk Trend Analysis** - Compare scan results over time to track security posture changes
-- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies for vulnerabilities
-- **Prometheus Monitoring** - Export metrics for monitoring and alerting
-- **Web UI Dashboard** - Visual security monitoring with real-time updates
-- **Multi-Language Support (i18n)** - Auto-detect system language, support English and Chinese output
-
-### v1.2.0 Features
-- **Multi-Language Dependency Scanning** - Scan npm, pip, cargo, and Go dependencies
-- **Prometheus Monitoring** - Export metrics for monitoring and alerting
-- **Go Vulnerability Scanning** - Check Go dependencies for known CVEs
-- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm
-- **True Sandbox Isolation** - containerd-based container isolation (Linux only)
-### v1.1.0 Features
-- **Dependency Vulnerability Scanning** - Check Go dependencies for known CVEs using golang.org/x/vuln
-- **Container Runtime Detection** - Detect Docker, Kubernetes, Podman, LXC, Wasm environments
-- **True Sandbox Isolation** - containerd-based container isolation with Linux namespaces (Linux only)
-
-### Security & Compliance
 - **Audit Logging** - Comprehensive security event logging with JSON format and SIEM integration
-- **Risk Assessment** - Intelligently analyze security threats and calculate risk levels (85%+ coverage)
 - **Smart Command Parsing** - Advanced flag parsing to prevent bypass attempts
 - **Sandbox Execution** - Safely run commands in isolated environments
-
-### Configuration & Protection
 - **Policy Management** - Control access permissions via YAML configuration
 - **Prompt Injection Protection** - Detect and block malicious prompt injection attacks
 - **Plugin Scanning** - Detect insecure plugins and extensions
@@ -224,7 +238,7 @@ network:
  ██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
  ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 
-                             🛡️  Security Scan Report v1.3.0
+                             🛡️  Security Scan Report v1.4.1
 
 Overall Risk: 🔶 HIGH
 
