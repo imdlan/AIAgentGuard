@@ -1,6 +1,6 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Version](https://img.shields.io/badge/version-v1.4.2-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
 [![Downloads](https://img.shields.io/github/downloads/imdlan/AIAgentGuard/total.svg)](https://github.com/imdlan/AIAgentGuard/releases)
@@ -18,7 +18,12 @@
 
 ## 功能特性
 
-### v1.4.1 功能（最新）⭐
+### v1.4.2 功能（最新）⭐
+- **IPv6 兼容性修复** - 修复网络地址格式以支持 IPv6 主机检测
+- **代码质量改进** - 删除重复代码块，修复 panic 误用问题
+- **依赖清理** - 移除 30+ 个未使用的依赖，减小二进制体积
+
+### v1.4.1 功能
 - **版本命令** - 使用 `agent-guard version` 显示已安装的版本
 - **安装脚本改进** - 为 GitHub API 速率限制添加回退方法，提供更好的错误消息
 
@@ -232,7 +237,7 @@ network:
  ██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
  ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 
-                             🛡️  Security Scan Report v1.4.1
+                             🛡️  Security Scan Report v1.4.2
 
 Overall Risk: 🔶 HIGH
 

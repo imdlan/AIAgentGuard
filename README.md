@@ -1,6 +1,6 @@
 # AI AgentGuard
 
-[![Version](https://img.shields.io/badge/version-v1.4.1-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
+[![Version](https://img.shields.io/badge/version-v1.4.2-blue.svg)](https://github.com/imdlan/AIAgentGuard/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Go Report](https://goreportcard.com/badge/github.com/imdlan/AIAgentGuard)](https://goreportcard.com/report/github.com/imdlan/AIAgentGuard)
 [![Downloads](https://img.shields.io/github/downloads/imdlan/AIAgentGuard/total.svg)](https://github.com/imdlan/AIAgentGuard/releases)
@@ -17,7 +17,14 @@
 
 ## Features
 
-### v1.4.1 Features (Latest) ⭐
+### v1.4.2 Features (Latest) ⭐
+- **IPv6 Compatibility Fix** - Fixed network address format for IPv6 support in host checking
+- **Code Quality Improvements** - Removed duplicate code blocks and fixed panic misuse
+- **Dependency Cleanup** - Removed 30+ unused dependencies for smaller binary size
+
+### v1.4.1 Features
+- **Version Command** - Display installed version with `agent-guard version`
+- **Installation Script Improvements** - Fallback method for GitHub API rate limiting with better error messages
 - **Version Command** - Display installed version with `agent-guard version`
 - **Installation Script Improvements** - Fallback method for GitHub API rate limiting with better error messages
 
@@ -237,7 +244,7 @@ network:
  ██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
  ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 
-                             🛡️  Security Scan Report v1.4.1
+                             🛡️  Security Scan Report v1.4.2
 
 Overall Risk: 🔶 HIGH
 
