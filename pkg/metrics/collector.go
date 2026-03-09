@@ -1,9 +1,11 @@
 package metrics
 
 import (
+	"fmt"
 	"net/http"
 	"sync"
 	"time"
+
 
 	"github.com/imdlan/AIAgentGuard/pkg/model"
 	"github.com/prometheus/client_golang/prometheus"
@@ -242,7 +244,8 @@ func (m *MetricsCollector) StartMetricsServerAsync(addr string) {
 	go func() {
 		if err := m.StartMetricsServer(addr); err != nil {
 			// Log error but don't crash
-			panic(err)
+			fmt.Printf("Metrics server error: %v\n", err)
 		}
 	}()
 }
+

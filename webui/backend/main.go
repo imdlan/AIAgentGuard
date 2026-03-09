@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	version = "v1.2.0-dev"
+	version = "v1.4.2"
 )
 
 func main() {
@@ -64,33 +64,7 @@ func main() {
 		// WebSocket endpoint for real-time updates
 		api.GET("/realtime", handleWebSocket)
 	}
-	{
-		// Scan endpoints
-		api.GET("/scan", handleScan)
-		api.POST("/scan", handleScanWithOptions)
-		api.GET("/scan/:id", handleGetScanResult)
 
-		// History endpoint
-		api.GET("/history", handleHistory)
-
-		// Trends endpoint
-		api.GET("/trends", handleTrends)
-
-		// Alerts endpoint
-		api.GET("/alerts", handleAlerts)
-
-		// System status
-		api.GET("/status", handleStatus)
-
-		// Metrics endpoints
-		api.GET("/metrics", handleMetrics)
-		api.GET("/metrics/scan-rate", handleScanRateMetrics)
-		api.GET("/metrics/vulnerabilities", handleVulnerabilityMetrics)
-		api.GET("/metrics/duration", handleDurationMetrics)
-
-		// WebSocket endpoint for real-time updates
-		api.GET("/realtime", handleWebSocket)
-	}
 
 	// Prometheus metrics endpoint (for external scraping)
 	router.GET("/metrics", gin.WrapH(promhttp.Handler()))
@@ -627,8 +601,7 @@ func getScannerStatus() map[string]interface{} {
 		"pipdeps":      "ready",
 		"cargodeps":    "ready",
 		"processes":    "ready",
-		"suid":         "ready",
-		"suid":         "ready",
+
 	}
 }
 
